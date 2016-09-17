@@ -54,3 +54,8 @@ void MainWindow::on_clearButton_clicked()
     delete ui->finalImage->pixmap();
   }
 }
+
+void MainWindow::on_runButton_clicked()
+{
+  return;
+}

@@ -2,7 +2,7 @@
 
 #include "tools.h"
 
-int image::tools::averagePixelBrightness(QImage *image, QPoint point)
+static int image::tools::averagePixelBrightness(QImage *image, QPoint point)
 {
   // TODO: make checks
 

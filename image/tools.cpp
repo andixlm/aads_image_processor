@@ -1,8 +1,5 @@
 #include <cmath>
 
-#include <QImage>
-#include <QPoint>
-
 #include "tools.h"
 
 int image::tools::averagePixelBrightness(QImage *image, QPoint point)

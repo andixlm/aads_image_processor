@@ -13,3 +13,26 @@ void MainWindow::on_openButton_clicked()
   } else
     ui->originalImage->setPixmap(*image);
 }
+
+void MainWindow::on_closeButton_clicked()
+{
+  if (!ui->originalImage->pixmap()) {
+    ui->originalImage->clear();
+    delete ui->originalImage->pixmap();
+  }
+
+  if (!ui->stageOneImage->pixmap()) {
+    ui->stageOneImage->clear();
+    delete ui->stageOneImage->pixmap();
+  }
+
+  if (!ui->stageTwoImage->pixmap()) {
+    ui->stageTwoImage->clear();
+    delete ui->stageTwoImage->pixmap();
+  }
+
+  if (!ui->finalImage->pixmap()) {
+    ui->finalImage->clear();
+    delete ui->finalImage->pixmap();
+  }
+}

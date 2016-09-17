@@ -36,3 +36,21 @@ void MainWindow::on_closeButton_clicked()
     delete ui->finalImage->pixmap();
   }
 }
+
+void MainWindow::on_clearButton_clicked()
+{
+  if (!ui->stageOneImage->pixmap()) {
+    ui->stageOneImage->clear();
+    delete ui->stageOneImage->pixmap();
+  }
+
+  if (!ui->stageTwoImage->pixmap()) {
+    ui->stageTwoImage->clear();
+    delete ui->stageTwoImage->pixmap();
+  }
+
+  if (!ui->finalImage->pixmap()) {
+    ui->finalImage->clear();
+    delete ui->finalImage->pixmap();
+  }
+}

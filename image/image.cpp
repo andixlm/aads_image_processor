@@ -11,9 +11,9 @@ static int image::averagePixelBrightness(QImage *image, QPoint point)
           image->pixelColor(point).blue()) / 3;
 }
 
-bool image::isThresholdExceeded(QImage *image,
-                                       QPoint pointOne, QPoint pointTwo,
-                                       int threshold)
+bool image::isBrightnessThreshold(QImage *image,
+                                  QPoint pointOne, QPoint pointTwo,
+                                  int threshold)
 {
   // TODO: make checks.
 

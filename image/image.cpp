@@ -1,14 +1,14 @@
 #include <cmath>
-
 #include "image.h"
 
-static int image::averagePixelBrightness(QImage *image, QPoint point)
+bool image::isSizeThreshold(QPoint pointOne, QPoint pointTwo)
 {
-  // TODO: make checks
+  // TODO: make checks.
 
-  return (image->pixelColor(point).red() +
-          image->pixelColor(point).green() +
-          image->pixelColor(point).blue()) / 3;
+  if (pointTwo.x() - pointOne.x() > 8)
+    return true;
+
+  return false;
 }
 
 bool image::isBrightnessThreshold(QImage *image,
@@ -31,12 +31,11 @@ bool image::isBrightnessThreshold(QImage *image,
   return false;
 }
 
-bool image::isSizeThreshold(QPoint pointOne, QPoint pointTwo)
+static int image::averagePixelBrightness(QImage *image, QPoint point)
 {
-  // TODO: make checks.
+  // TODO: make checks
 
-  if (pointTwo.x() - pointOne.x() > 8)
-    return true;
-
-  return false;
+  return (image->pixelColor(point).red() +
+          image->pixelColor(point).green() +
+          image->pixelColor(point).blue()) / 3;
 }

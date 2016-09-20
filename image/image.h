@@ -5,11 +5,11 @@
 #include <QPoint>
 
 namespace image {
-  static int averagePixelBrightness(QImage *image, QPoint point);
-
+  // Tools
   bool isSizeThreshold(QPoint pointOne, QPoint pointTwo);
   bool isThresholdExceeded(QImage *image, QPoint pointOne, QPoint pointTwo,
                            int threshold);
+  static int averagePixelBrightness(QImage *image, QPoint point);
 }
 
 #endif // IMAGE_H

@@ -7,10 +7,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
         mainwindow.cpp \
-        ui/buttons.cpp \
-        image/tools.cpp
+        image/image.cpp \
+        ui/buttons.cpp
 
 HEADERS += mainwindow.h \
-        image/tools.h
+        image/image.h
 
 FORMS += mainwindow.ui

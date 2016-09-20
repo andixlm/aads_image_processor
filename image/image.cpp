@@ -1,8 +1,8 @@
 #include <cmath>
 
-#include "tools.h"
+#include "image.h"
 
-static int image::tools::averagePixelBrightness(QImage *image, QPoint point)
+static int image::averagePixelBrightness(QImage *image, QPoint point)
 {
   // TODO: make checks
 
@@ -11,7 +11,7 @@ static int image::tools::averagePixelBrightness(QImage *image, QPoint point)
           image->pixelColor(point).blue()) / 3;
 }
 
-bool image::tools::isThresholdExceeded(QImage *image,
+bool image::isThresholdExceeded(QImage *image,
                                        QPoint pointOne, QPoint pointTwo,
                                        int threshold)
 {

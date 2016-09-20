@@ -27,7 +27,7 @@ bool image::isSizeThreshold(QPoint pointOne, QPoint pointTwo)
 {
   // TODO: make checks.
 
-  if (pointTwo.x() - pointOne.x() > 8)
+  if (pointTwo.x() - pointOne.x() <= 8)
     return true;
 
   return false;

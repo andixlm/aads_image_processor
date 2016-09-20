@@ -7,6 +7,7 @@
 namespace image {
   static int averagePixelBrightness(QImage *image, QPoint point);
 
+  bool isSizeThreshold(QPoint pointOne, QPoint pointTwo);
   bool isThresholdExceeded(QImage *image, QPoint pointOne, QPoint pointTwo,
                            int threshold);
 }

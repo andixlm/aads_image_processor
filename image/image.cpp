@@ -30,3 +30,13 @@ bool image::isBrightnessThreshold(QImage *image,
 
   return false;
 }
+
+bool image::isSizeThreshold(QPoint pointOne, QPoint pointTwo)
+{
+  // TODO: make checks.
+
+  if (pointTwo.x() - pointOne.x() > 8)
+    return true;
+
+  return false;
+}

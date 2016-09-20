@@ -1,6 +1,28 @@
 #include <cmath>
 #include "image.h"
 
+void image::makeGrid(QImage *image, QPoint pointOne, QPoint pointTwo,
+                     int threshold)
+{
+  // TODO: make checks
+
+  if (isBrightnessThreshold(image, pointOne, pointTwo, threshold) &&
+      !isSizeThreshold(pointOne, pointTwo)) {
+    int middleWidth = (pointOne.x() + pointTwo.x()) / 2;
+    int middleHeight = (pointOne.y() + pointTwo.y()) / 2;
+
+    if (middleHeight > middleWidth) {
+      // Divide by height.
+      makeGrid(image, pointOne, QPoint(pointTwo.x(), middleHeight), threshold);
+      makeGrid(image, QPoint(pointOne.x(), middleHeight), pointTwo, threshold);
+    } else {
+      // Divide by width.
+      makeGrid(image, pointOne, QPoint(middleWidth, pointTwo.y()), threshold);
+      makeGrid(image, QPoint(middleWidth, pointOne.y()), pointTwo, threshold);
+    }
+  }
+}
+
 bool image::isSizeThreshold(QPoint pointOne, QPoint pointTwo)
 {
   // TODO: make checks.

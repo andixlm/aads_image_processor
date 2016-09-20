@@ -5,6 +5,9 @@
 #include <QPoint>
 
 namespace image {
+  // Processing
+  void makeGrid(QImage *image, QPoint pointOne, QPoint pointTwo, int threshold);
+
   // Tools
   bool isSizeThreshold(QPoint pointOne, QPoint pointTwo);
   bool isBrightnessThreshold(QImage *image, QPoint pointOne, QPoint pointTwo,

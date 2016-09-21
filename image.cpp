@@ -1,5 +1,14 @@
 #include <cmath>
+#include <QPixmap>
 #include "image.h"
+
+QImage *image::makeImage()
+{
+  QImage *image = new QImage(QPixmap(QSize(256, 256)).toImage());
+  image->fill(QColor(Qt::white));
+
+  return image;
+}
 
 void image::makeGrid(QImage *image, QPoint pointOne, QPoint pointTwo,
                      int threshold)

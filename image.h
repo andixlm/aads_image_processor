@@ -5,6 +5,8 @@
 #include <QPoint>
 
 namespace image {
+  QImage *makeImage();
+
   // Processing
   void makeGrid(QImage *image, QPoint pointOne, QPoint pointTwo, int threshold);
 

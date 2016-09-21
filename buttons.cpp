@@ -1,6 +1,6 @@
 #include <QFileDialog>
-#include "../mainwindow.h"
-#include "../ui_mainwindow.h"
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
 
 void MainWindow::on_openButton_clicked()
 {

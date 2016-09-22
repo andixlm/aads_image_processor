@@ -18,6 +18,8 @@ void MainWindow::buildGrid()
   grid(originalImage, stagedImage, QPoint(0, 0), QPoint(255, 255));
 
   ui->stageOneImage->setPixmap(QPixmap::fromImage(*stagedImage));
+
+  delete originalImage;
 }
 
 void MainWindow::grid(QImage *originalImage, QImage *stagedImage,

@@ -1,3 +1,5 @@
+#include <QMainWindow>
+#include <QWidget>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 

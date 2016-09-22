@@ -1,7 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QImage>
 #include <QMainWindow>
+#include <QPoint>
+#include <QWidget>
 
 namespace Ui {
   class MainWindow;

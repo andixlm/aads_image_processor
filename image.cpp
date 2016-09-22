@@ -1,6 +1,10 @@
 #include <cmath>
-#include <QPixmap>
+#include <QColor>
+#include <QImage>
 #include <QPainter>
+#include <QPixmap>
+#include <QPoint>
+#include <QSize>
 #include "mainwindow.h"
 
 QImage *MainWindow::makeImage()

@@ -1,4 +1,6 @@
 #include <QFileDialog>
+#include <QPixmap>
+#include <QString>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 

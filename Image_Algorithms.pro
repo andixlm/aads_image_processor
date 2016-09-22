@@ -7,6 +7,7 @@ TEMPLATE = app
 
 SOURCES += main.cpp mainwindow.cpp \
         buttons.cpp \
+        grid.cpp \
         image.cpp
 
 HEADERS += mainwindow.h

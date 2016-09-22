@@ -29,14 +29,17 @@ private:
   Ui::MainWindow *ui;
 
   void (MainWindow::*processImage)();
+  // Image grid
   void buildGrid();
-  void restoreImage();
-  void markStrokes();
-
-  QImage *makeImage();
   void grid(QImage *originalImage, QImage *stagedImage,
             QPoint topLeft, QPoint bottomRight);
   void drawRectangle(QImage *image, QPoint topLeft, QPoint bottomRight);
+
+  void restoreImage();
+  void markStrokes();
+
+  // Image tools
+  QImage *makeImage();
   bool isSizeThreshold(QPoint topLeft, QPoint bottomRight);
   bool isBrightnessThreshold(QImage *image, QPoint topLeft, QPoint bottomRight);
   int averagePixelBrightness(QImage *image, QPoint point);

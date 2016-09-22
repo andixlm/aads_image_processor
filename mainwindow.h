@@ -25,6 +25,11 @@ public:
 private:
   Ui::MainWindow *ui;
 
+  void (*processImage)();
+  void buildGrid();
+  void restoreImage();
+  void markStrokes();
+
   QImage *makeImage();
   void makeGrid(QImage *image, QPoint topLeft, QPoint bottomRight, int threshold);
   void drawRectangle(QImage *image, QPoint topLeft, QPoint bottomRight);

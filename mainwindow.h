@@ -31,7 +31,7 @@ private:
   void markStrokes();
 
   QImage *makeImage();
-  void makeGrid(QImage *image, QPoint topLeft, QPoint bottomRight, int threshold);
+  void grid(QImage *image, QPoint topLeft, QPoint bottomRight, int threshold);
   void drawRectangle(QImage *image, QPoint topLeft, QPoint bottomRight);
   bool isSizeThreshold(QPoint topLeft, QPoint bottomRight);
   bool isBrightnessThreshold(QImage *image, QPoint topLeft, QPoint bottomRight,

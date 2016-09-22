@@ -19,8 +19,8 @@ QImage *MainWindow::makeImage()
   return image;
 }
 
-void MainWindow::makeGrid(QImage *image, QPoint topLeft, QPoint bottomRight,
-                          int threshold)
+void MainWindow::grid(QImage *image, QPoint topLeft, QPoint bottomRight,
+                      int threshold)
 {
   if (!image)
     throw Exception::nullPointer();
@@ -32,12 +32,12 @@ void MainWindow::makeGrid(QImage *image, QPoint topLeft, QPoint bottomRight,
 
     if (bottomRight.y() - topLeft.y() > bottomRight.x() - topLeft.x()) {
       // Divide by height.
-      makeGrid(image, topLeft, QPoint(bottomRight.x(), middleHeight), threshold);
-      makeGrid(image, QPoint(topLeft.x(), middleHeight), bottomRight, threshold);
+      grid(image, topLeft, QPoint(bottomRight.x(), middleHeight), threshold);
+      grid(image, QPoint(topLeft.x(), middleHeight), bottomRight, threshold);
     } else {
       // Divide by width.
-      makeGrid(image, topLeft, QPoint(middleWidth, bottomRight.y()), threshold);
-      makeGrid(image, QPoint(middleWidth, topLeft.y()), bottomRight, threshold);
+      grid(image, topLeft, QPoint(middleWidth, bottomRight.y()), threshold);
+      grid(image, QPoint(middleWidth, topLeft.y()), bottomRight, threshold);
     }
   }
 }

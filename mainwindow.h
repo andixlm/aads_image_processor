@@ -28,7 +28,7 @@ private:
 
   Ui::MainWindow *ui;
 
-  void (*processImage)();
+  void (MainWindow::*processImage)();
   void buildGrid();
   void restoreImage();
   void markStrokes();

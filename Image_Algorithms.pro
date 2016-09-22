@@ -10,7 +10,6 @@ SOURCES += main.cpp \
         image.cpp \
         buttons.cpp
 
-HEADERS += mainwindow.h \
-        image.h
+HEADERS += mainwindow.h
 
 FORMS += mainwindow.ui

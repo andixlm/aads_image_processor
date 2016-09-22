@@ -1,8 +1,8 @@
 #include <cmath>
 #include <QPixmap>
-#include "image.h"
+#include "mainwindow.h"
 
-QImage *image::makeImage()
+QImage *MainWindow::makeImage()
 {
   QImage *image = new QImage(QPixmap(QSize(256, 256)).toImage());
   image->fill(QColor(Qt::white));
@@ -10,7 +10,7 @@ QImage *image::makeImage()
   return image;
 }
 
-void image::makeGrid(QImage *image, QPoint pointOne, QPoint pointTwo,
+void MainWindow::makeGrid(QImage *image, QPoint pointOne, QPoint pointTwo,
                      int threshold)
 {
   // TODO: make checks
@@ -32,7 +32,7 @@ void image::makeGrid(QImage *image, QPoint pointOne, QPoint pointTwo,
   }
 }
 
-bool image::isSizeThreshold(QPoint pointOne, QPoint pointTwo)
+bool MainWindow::isSizeThreshold(QPoint pointOne, QPoint pointTwo)
 {
   // TODO: make checks.
 
@@ -42,7 +42,7 @@ bool image::isSizeThreshold(QPoint pointOne, QPoint pointTwo)
   return false;
 }
 
-bool image::isBrightnessThreshold(QImage *image,
+bool MainWindow::isBrightnessThreshold(QImage *image,
                                   QPoint pointOne, QPoint pointTwo,
                                   int threshold)
 {
@@ -62,7 +62,7 @@ bool image::isBrightnessThreshold(QImage *image,
   return false;
 }
 
-static int image::averagePixelBrightness(QImage *image, QPoint point)
+int MainWindow::averagePixelBrightness(QImage *image, QPoint point)
 {
   // TODO: make checks
 

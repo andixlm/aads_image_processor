@@ -17,6 +17,13 @@ public:
 private:
   Ui::MainWindow *ui;
 
+  QImage *makeImage();
+  void makeGrid(QImage *image, QPoint pointOne, QPoint pointTwo, int threshold);
+  bool isSizeThreshold(QPoint pointOne, QPoint pointTwo);
+  bool isBrightnessThreshold(QImage *image, QPoint pointOne, QPoint pointTwo,
+                           int threshold);
+  int averagePixelBrightness(QImage *image, QPoint point);
+
 private slots:
   void on_openButton_clicked();
   void on_closeButton_clicked();

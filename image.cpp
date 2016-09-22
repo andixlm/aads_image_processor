@@ -19,27 +19,37 @@ QImage *MainWindow::makeImage()
   return image;
 }
 
-void MainWindow::grid(QImage *image, QPoint topLeft, QPoint bottomRight,
-                      int threshold)
+void MainWindow::grid(QImage *originalImage, QImage *stagedImage,
+                      QPoint topLeft, QPoint bottomRight)
 {
-  if (!image)
+  if (!originalImage || !stagedImage)
     throw Exception::nullPointer();
 
-  if (isBrightnessThreshold(image, topLeft, bottomRight, threshold) &&
+  if (isBrightnessThreshold(originalImage, topLeft, bottomRight) &&
       !isSizeThreshold(topLeft, bottomRight)) {
+
+    int width = bottomRight.x() - topLeft.x();
+    int height = bottomRight.y() - topLeft.y();
+
     int middleWidth = (topLeft.x() + bottomRight.x()) / 2;
     int middleHeight = (topLeft.y() + bottomRight.y()) / 2;
 
-    if (bottomRight.y() - topLeft.y() > bottomRight.x() - topLeft.x()) {
-      // Divide by height.
-      grid(image, topLeft, QPoint(bottomRight.x(), middleHeight), threshold);
-      grid(image, QPoint(topLeft.x(), middleHeight), bottomRight, threshold);
+    if (height > width) {
+      // Divide by height with horizontal line.
+      grid(originalImage, stagedImage,
+           topLeft, QPoint(bottomRight.x(), middleHeight));
+      grid(originalImage, stagedImage,
+           QPoint(topLeft.x(), middleHeight), bottomRight);
     } else {
-      // Divide by width.
-      grid(image, topLeft, QPoint(middleWidth, bottomRight.y()), threshold);
-      grid(image, QPoint(middleWidth, topLeft.y()), bottomRight, threshold);
+      // Divide by width with vertical line.
+      grid(originalImage, stagedImage,
+           topLeft, QPoint(middleWidth, bottomRight.y()));
+      grid(originalImage, stagedImage,
+           QPoint(middleWidth, topLeft.y()), bottomRight);
     }
   }
+
+  drawRectangle(stagedImage, topLeft, bottomRight);
 }
 
 void MainWindow::drawRectangle(QImage *image, QPoint topLeft, QPoint bottomRight)
@@ -56,15 +66,15 @@ void MainWindow::drawRectangle(QImage *image, QPoint topLeft, QPoint bottomRight
 
 bool MainWindow::isSizeThreshold(QPoint topLeft, QPoint bottomRight)
 {
-  if (bottomRight.x() - topLeft.x() <= 8 || bottomRight.y() - topLeft.y() <= 8)
+  if (bottomRight.x() - topLeft.x() <= this->sizeThreshold ||
+      bottomRight.y() - topLeft.y() <= this->sizeThreshold)
     return true;
 
   return false;
 }
 
 bool MainWindow::isBrightnessThreshold(QImage *image,
-                                       QPoint topLeft, QPoint bottomRight,
-                                       int threshold)
+                                       QPoint topLeft, QPoint bottomRight)
 {
   if (!image)
     throw Exception::nullPointer();
@@ -77,7 +87,7 @@ bool MainWindow::isBrightnessThreshold(QImage *image,
 
           if (abs(averagePixelBrightness(image, QPoint(x, y)) -
                   averagePixelBrightness(image, QPoint(innerX, innerY))) >
-              threshold)
+              this->brightnessThreshold)
             return true;
 
   return false;

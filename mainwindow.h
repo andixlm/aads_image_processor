@@ -23,6 +23,9 @@ public:
   ~MainWindow();
 
 private:
+  int sizeThreshold = 8;
+  int brightnessThreshold = 33;
+
   Ui::MainWindow *ui;
 
   void (*processImage)();
@@ -31,11 +34,11 @@ private:
   void markStrokes();
 
   QImage *makeImage();
-  void grid(QImage *image, QPoint topLeft, QPoint bottomRight, int threshold);
+  void grid(QImage *originalImage, QImage *stagedImage,
+            QPoint topLeft, QPoint bottomRight);
   void drawRectangle(QImage *image, QPoint topLeft, QPoint bottomRight);
   bool isSizeThreshold(QPoint topLeft, QPoint bottomRight);
-  bool isBrightnessThreshold(QImage *image, QPoint topLeft, QPoint bottomRight,
-                           int threshold);
+  bool isBrightnessThreshold(QImage *image, QPoint topLeft, QPoint bottomRight);
   int averagePixelBrightness(QImage *image, QPoint point);
 
 private slots:

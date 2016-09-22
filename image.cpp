@@ -44,6 +44,9 @@ void MainWindow::makeGrid(QImage *image, QPoint topLeft, QPoint bottomRight,
 
 void MainWindow::drawRectangle(QImage *image, QPoint topLeft, QPoint bottomRight)
 {
+  if (!image)
+    throw Exception::nullPointer();
+
   QPainter painter;
   painter.begin(image);
   painter.setPen(QColor(Qt::black));

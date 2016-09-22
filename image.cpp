@@ -1,5 +1,6 @@
 #include <cmath>
 #include <QPixmap>
+#include <QPainter>
 #include "mainwindow.h"
 
 QImage *MainWindow::makeImage()
@@ -30,6 +31,15 @@ void MainWindow::makeGrid(QImage *image, QPoint pointOne, QPoint pointTwo,
       makeGrid(image, QPoint(middleWidth, pointOne.y()), pointTwo, threshold);
     }
   }
+}
+
+void MainWindow::drawRectangle(QImage *image, QPoint pointOne, QPoint pointTwo)
+{
+  QPainter painter;
+  painter.begin(image);
+  painter.setPen(QColor(Qt::black));
+  painter.drawRect(QRect(pointOne, pointTwo));
+  painter.end();
 }
 
 bool MainWindow::isSizeThreshold(QPoint pointOne, QPoint pointTwo)

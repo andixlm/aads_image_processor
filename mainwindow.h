@@ -19,6 +19,7 @@ private:
 
   QImage *makeImage();
   void makeGrid(QImage *image, QPoint pointOne, QPoint pointTwo, int threshold);
+  void drawRectangle(QImage *image, QPoint pointOne, QPoint pointTwo);
   bool isSizeThreshold(QPoint pointOne, QPoint pointTwo);
   bool isBrightnessThreshold(QImage *image, QPoint pointOne, QPoint pointTwo,
                            int threshold);

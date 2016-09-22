@@ -9,10 +9,9 @@ void MainWindow::on_openButton_clicked()
   const QPixmap *image = new QPixmap(
         QFileDialog::getOpenFileName(nullptr, QString("Open image")));
 
-  if (image->isNull()) {
+  if (image->isNull())
     delete image;
-    return;
-  } else
+  else
     ui->originalImage->setPixmap(*image);
 }
 

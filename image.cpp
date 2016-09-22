@@ -16,7 +16,7 @@ QImage *MainWindow::makeImage()
 }
 
 void MainWindow::makeGrid(QImage *image, QPoint pointOne, QPoint pointTwo,
-                     int threshold)
+                          int threshold)
 {
   // TODO: make checks
 
@@ -57,8 +57,8 @@ bool MainWindow::isSizeThreshold(QPoint pointOne, QPoint pointTwo)
 }
 
 bool MainWindow::isBrightnessThreshold(QImage *image,
-                                  QPoint pointOne, QPoint pointTwo,
-                                  int threshold)
+                                       QPoint pointOne, QPoint pointTwo,
+                                       int threshold)
 {
   // TODO: make checks.
 

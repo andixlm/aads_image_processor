@@ -56,8 +56,6 @@ void MainWindow::drawRectangle(QImage *image, QPoint topLeft, QPoint bottomRight
 
 bool MainWindow::isSizeThreshold(QPoint topLeft, QPoint bottomRight)
 {
-  // TODO: make checks.
-
   if (bottomRight.x() - topLeft.x() <= 8 || bottomRight.y() - topLeft.y() <= 8)
     return true;
 

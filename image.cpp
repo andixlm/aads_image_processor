@@ -15,58 +15,58 @@ QImage *MainWindow::makeImage()
   return image;
 }
 
-void MainWindow::makeGrid(QImage *image, QPoint pointOne, QPoint pointTwo,
+void MainWindow::makeGrid(QImage *image, QPoint topLeft, QPoint bottomRight,
                           int threshold)
 {
   // TODO: make checks
 
-  if (isBrightnessThreshold(image, pointOne, pointTwo, threshold) &&
-      !isSizeThreshold(pointOne, pointTwo)) {
-    int middleWidth = (pointOne.x() + pointTwo.x()) / 2;
-    int middleHeight = (pointOne.y() + pointTwo.y()) / 2;
+  if (isBrightnessThreshold(image, topLeft, bottomRight, threshold) &&
+      !isSizeThreshold(topLeft, bottomRight)) {
+    int middleWidth = (topLeft.x() + bottomRight.x()) / 2;
+    int middleHeight = (topLeft.y() + bottomRight.y()) / 2;
 
-    if (pointTwo.y() - pointOne.y() > pointTwo.x() - pointOne.x()) {
+    if (bottomRight.y() - topLeft.y() > bottomRight.x() - topLeft.x()) {
       // Divide by height.
-      makeGrid(image, pointOne, QPoint(pointTwo.x(), middleHeight), threshold);
-      makeGrid(image, QPoint(pointOne.x(), middleHeight), pointTwo, threshold);
+      makeGrid(image, topLeft, QPoint(bottomRight.x(), middleHeight), threshold);
+      makeGrid(image, QPoint(topLeft.x(), middleHeight), bottomRight, threshold);
     } else {
       // Divide by width.
-      makeGrid(image, pointOne, QPoint(middleWidth, pointTwo.y()), threshold);
-      makeGrid(image, QPoint(middleWidth, pointOne.y()), pointTwo, threshold);
+      makeGrid(image, topLeft, QPoint(middleWidth, bottomRight.y()), threshold);
+      makeGrid(image, QPoint(middleWidth, topLeft.y()), bottomRight, threshold);
     }
   }
 }
 
-void MainWindow::drawRectangle(QImage *image, QPoint pointOne, QPoint pointTwo)
+void MainWindow::drawRectangle(QImage *image, QPoint topLeft, QPoint bottomRight)
 {
   QPainter painter;
   painter.begin(image);
   painter.setPen(QColor(Qt::black));
-  painter.drawRect(QRect(pointOne, pointTwo));
+  painter.drawRect(QRect(topLeft, bottomRight));
   painter.end();
 }
 
-bool MainWindow::isSizeThreshold(QPoint pointOne, QPoint pointTwo)
+bool MainWindow::isSizeThreshold(QPoint topLeft, QPoint bottomRight)
 {
   // TODO: make checks.
 
-  if (pointTwo.x() - pointOne.x() <= 8 || pointTwo.y() - pointOne.y() <= 8)
+  if (bottomRight.x() - topLeft.x() <= 8 || bottomRight.y() - topLeft.y() <= 8)
     return true;
 
   return false;
 }
 
 bool MainWindow::isBrightnessThreshold(QImage *image,
-                                       QPoint pointOne, QPoint pointTwo,
+                                       QPoint topLeft, QPoint bottomRight,
                                        int threshold)
 {
   // TODO: make checks.
 
-  for (int x = pointOne.x(); x < pointTwo.x(); ++x)
-    for (int y = pointOne.y(); y < pointTwo.y(); ++y)
+  for (int x = topLeft.x(); x < bottomRight.x(); ++x)
+    for (int y = topLeft.y(); y < bottomRight.y(); ++y)
 
-      for (int innerX = pointOne.x(); innerX < pointTwo.x(); ++innerX)
-        for (int innerY = pointOne.y(); innerY < pointTwo.y(); ++innerY)
+      for (int innerX = topLeft.x(); innerX < bottomRight.x(); ++innerX)
+        for (int innerY = topLeft.y(); innerY < bottomRight.y(); ++innerY)
 
           if (abs(averagePixelBrightness(image, QPoint(x, y)) -
                   averagePixelBrightness(image, QPoint(innerX, innerY))) >

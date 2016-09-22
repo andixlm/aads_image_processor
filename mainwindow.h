@@ -21,10 +21,10 @@ private:
   Ui::MainWindow *ui;
 
   QImage *makeImage();
-  void makeGrid(QImage *image, QPoint pointOne, QPoint pointTwo, int threshold);
-  void drawRectangle(QImage *image, QPoint pointOne, QPoint pointTwo);
-  bool isSizeThreshold(QPoint pointOne, QPoint pointTwo);
-  bool isBrightnessThreshold(QImage *image, QPoint pointOne, QPoint pointTwo,
+  void makeGrid(QImage *image, QPoint topLeft, QPoint bottomRight, int threshold);
+  void drawRectangle(QImage *image, QPoint topLeft, QPoint bottomRight);
+  bool isSizeThreshold(QPoint topLeft, QPoint bottomRight);
+  bool isBrightnessThreshold(QImage *image, QPoint topLeft, QPoint bottomRight,
                            int threshold);
   int averagePixelBrightness(QImage *image, QPoint point);
 

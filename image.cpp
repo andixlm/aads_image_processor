@@ -87,7 +87,8 @@ bool MainWindow::isBrightnessThreshold(QImage *image,
 
 int MainWindow::averagePixelBrightness(QImage *image, QPoint point)
 {
-  // TODO: make checks
+  if (!image)
+    throw Exception::nullPointer();
 
   return (image->pixelColor(point).red() +
           image->pixelColor(point).green() +

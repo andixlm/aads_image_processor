@@ -25,7 +25,7 @@ void MainWindow::makeGrid(QImage *image, QPoint pointOne, QPoint pointTwo,
     int middleWidth = (pointOne.x() + pointTwo.x()) / 2;
     int middleHeight = (pointOne.y() + pointTwo.y()) / 2;
 
-    if (middleHeight > middleWidth) {
+    if (pointTwo.y() - pointOne.y() > pointTwo.x() - pointOne.x()) {
       // Divide by height.
       makeGrid(image, pointOne, QPoint(pointTwo.x(), middleHeight), threshold);
       makeGrid(image, QPoint(pointOne.x(), middleHeight), pointTwo, threshold);

@@ -10,6 +10,10 @@
 QImage *MainWindow::makeImage()
 {
   QImage *image = new QImage(QPixmap(QSize(256, 256)).toImage());
+
+  if (!image)
+    throw Exception::outOfMemory();
+
   image->fill(QColor(Qt::white));
 
   return image;

@@ -68,7 +68,8 @@ bool MainWindow::isBrightnessThreshold(QImage *image,
                                        QPoint topLeft, QPoint bottomRight,
                                        int threshold)
 {
-  // TODO: make checks.
+  if (!image)
+    throw Exception::nullPointer();
 
   for (int x = topLeft.x(); x < bottomRight.x(); ++x)
     for (int y = topLeft.y(); y < bottomRight.y(); ++y)

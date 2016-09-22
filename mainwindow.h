@@ -6,6 +6,11 @@
 #include <QPoint>
 #include <QWidget>
 
+namespace Exception {
+  class nullPointer {};
+  class outOfMemory {};
+}
+
 namespace Ui {
   class MainWindow;
 }

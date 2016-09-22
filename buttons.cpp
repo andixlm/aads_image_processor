@@ -9,6 +9,9 @@ void MainWindow::on_openButton_clicked()
   const QPixmap *image = new QPixmap(
         QFileDialog::getOpenFileName(nullptr, QString("Open image")));
 
+  if (!image)
+    throw Exception::outOfMemory();
+
   if (!image->isNull())
     ui->originalImage->setPixmap(*image);
   else

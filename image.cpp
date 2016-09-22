@@ -22,7 +22,8 @@ QImage *MainWindow::makeImage()
 void MainWindow::makeGrid(QImage *image, QPoint topLeft, QPoint bottomRight,
                           int threshold)
 {
-  // TODO: make checks
+  if (!image)
+    throw Exception::nullPointer();
 
   if (isBrightnessThreshold(image, topLeft, bottomRight, threshold) &&
       !isSizeThreshold(topLeft, bottomRight)) {

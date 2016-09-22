@@ -6,6 +6,20 @@
 #include <QPoint>
 #include <QSize>
 #include "mainwindow.h"
+#include "ui_mainwindow.h"
+
+void MainWindow::buildGrid()
+{
+  QImage *originalImage = new QImage(ui->originalImage->pixmap()->toImage());
+  if (!originalImage)
+    throw Exception::outOfMemory();
+
+  QImage *stagedImage = makeImage();
+
+  grid(originalImage, stagedImage, QPoint(0, 0), QPoint(255, 255));
+
+  ui->stageOneImage->setPixmap(QPixmap::fromImage(*stagedImage));
+}
 
 QImage *MainWindow::makeImage()
 {

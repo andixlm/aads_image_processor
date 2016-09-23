@@ -45,10 +45,14 @@ private:
   int averagePixelBrightness(QImage *image, QPoint point);
 
 private slots:
+  // Button
   void on_openButton_clicked();
   void on_closeButton_clicked();
   void on_clearButton_clicked();
   void on_runButton_clicked();
+  // SpinBox
+  void on_sizeThreshold_valueChanged(int value);
+  void on_brightnessThreshold_valueChanged(int value);
 };
 
 #endif // MAINWINDOW_H

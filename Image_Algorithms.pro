@@ -6,7 +6,7 @@ TARGET = Image_Algorithms
 TEMPLATE = app
 
 SOURCES += main.cpp mainwindow.cpp \
-        buttons.cpp \
+        button.cpp \
         grid.cpp \
         image.cpp \
         spinbox.cpp

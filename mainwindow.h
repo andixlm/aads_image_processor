@@ -53,6 +53,8 @@ private slots:
   // SpinBox
   void on_sizeThreshold_valueChanged(int value);
   void on_brightnessThreshold_valueChanged(int value);
+  // ComboBox
+  void on_modeSwitcher_currentIndexChanged(int value);
 };
 
 #endif // MAINWINDOW_H

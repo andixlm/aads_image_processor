@@ -7,6 +7,7 @@ TEMPLATE = app
 
 SOURCES += main.cpp mainwindow.cpp \
         button.cpp \
+        combobox.cpp \
         grid.cpp \
         image.cpp \
         spinbox.cpp

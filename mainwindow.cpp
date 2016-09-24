@@ -9,7 +9,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
 
+  // Set up default parameters.
   processImage = &MainWindow::buildGrid;
+  sizeThreshold = ui->sizeThreshold->value();
+  brightnessThreshold = ui->brightnessThreshold->value();
 }
 
 MainWindow::~MainWindow()

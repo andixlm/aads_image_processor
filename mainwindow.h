@@ -23,8 +23,8 @@ public:
   ~MainWindow();
 
 private:
-  int sizeThreshold = 8;
-  int brightnessThreshold = 33;
+  int sizeThreshold;
+  int brightnessThreshold;
 
   Ui::MainWindow *ui;
 

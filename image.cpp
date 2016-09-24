@@ -32,26 +32,36 @@ bool MainWindow::isBrightnessThreshold(QImage *image,
   if (!image)
     throw Exception::nullPointer();
 
+  double polygonArea = 0,  polygonOnPoint = 0;
+
   for (int x = topLeft.x(); x < bottomRight.x(); ++x)
-    for (int y = topLeft.y(); y < bottomRight.y(); ++y)
+    for (int y = topLeft.y(); y < bottomRight.y(); ++y) {
+      polygonOnPoint += averagePixelBrightness(image, QPoint(x, y));
+      ++polygonArea;
+    }
 
-      for (int innerX = topLeft.x(); innerX < bottomRight.x(); ++innerX)
-        for (int innerY = topLeft.y(); innerY < bottomRight.y(); ++innerY)
+  polygonOnPoint /= pow(polygonArea, 2.0);
 
-          if (abs(averagePixelBrightness(image, QPoint(x, y)) -
-                  averagePixelBrightness(image, QPoint(innerX, innerY))) >
-              this->brightnessThreshold)
-            return true;
+  double thresholdOnPoint = this->brightnessThreshold / polygonArea;
+
+  for (int x = topLeft.x(); x < bottomRight.x(); ++x)
+    for (int y = topLeft.y(); y < bottomRight.y(); ++y) {
+      double pointOnPolygon =
+          averagePixelBrightness(image, QPoint(x, y)) / polygonArea;
+
+      if (fabs(pointOnPolygon - polygonOnPoint) > thresholdOnPoint)
+        return true;
+    }
 
   return false;
 }
 
-int MainWindow::averagePixelBrightness(QImage *image, QPoint point)
+double MainWindow::averagePixelBrightness(QImage *image, QPoint point)
 {
   if (!image)
     throw Exception::nullPointer();
 
   return (image->pixelColor(point).red() +
           image->pixelColor(point).green() +
-          image->pixelColor(point).blue()) / 3;
+          image->pixelColor(point).blue()) / 3.0;
 }

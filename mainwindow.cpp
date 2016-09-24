@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
   ui(new Ui::MainWindow)
 {
   ui->setupUi(this);
+
+  processImage = &MainWindow::buildGrid;
 }
 
 MainWindow::~MainWindow()

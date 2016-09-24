@@ -61,5 +61,5 @@ void MainWindow::on_clearButton_clicked()
 
 void MainWindow::on_runButton_clicked()
 {
-  return;
+  (this->*processImage)();
 }

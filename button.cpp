@@ -61,5 +61,8 @@ void MainWindow::on_clearButton_clicked()
 
 void MainWindow::on_runButton_clicked()
 {
+  if (ui->originalImage->pixmap() == nullptr)
+    return;
+
   (this->*processImage)();
 }

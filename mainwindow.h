@@ -3,6 +3,7 @@
 
 #include <QImage>
 #include <QMainWindow>
+#include <QStack>
 #include <QPoint>
 #include <QWidget>
 
@@ -10,6 +11,12 @@ namespace Exception {
   class nullPointer {};
   class outOfMemory {};
 }
+
+struct Polygon {
+  QPoint topLeft;
+  QPoint bottomRight;
+  int averageColor;
+};
 
 namespace Ui {
   class MainWindow;
@@ -37,6 +44,9 @@ private:
 
   void restoreImage();
   void markStrokes();
+
+  // Image structures
+  QStack<Polygon> polygons;
 
   // Image tools
   QImage *makeImage();

@@ -15,7 +15,7 @@ void MainWindow::buildGrid()
 
   QImage *stagedImage = makeImage();
 
-  grid(originalImage, stagedImage, QPoint(0, 0), QPoint(255, 255));
+  grid(originalImage, stagedImage, QPoint(0, 0), QPoint(256, 256));
 
   ui->stageOneImage->setPixmap(QPixmap::fromImage(*stagedImage));
 

@@ -64,6 +64,9 @@ void MainWindow::drawRectangle(QImage *image, QPoint topLeft, QPoint bottomRight
   QPainter painter;
   painter.begin(image);
   painter.setPen(QColor(Qt::black));
-  painter.drawRect(QRect(topLeft, bottomRight));
+  painter.drawLine(topLeft.x(), topLeft.y(), bottomRight.x(), topLeft.y());
+  painter.drawLine(bottomRight.x(), topLeft.y(), bottomRight.x(), bottomRight.y());
+  painter.drawLine(bottomRight.x(), bottomRight.y(), topLeft.x(), bottomRight.y());
+  painter.drawLine(topLeft.x(), bottomRight.y(), topLeft.x(), topLeft.y());
   painter.end();
 }

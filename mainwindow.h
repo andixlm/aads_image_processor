@@ -12,17 +12,18 @@ namespace Exception {
   class outOfMemory {};
 }
 
-struct Polygon {
-  QPoint topLeft;
-  QPoint bottomRight;
-  int averageColor;
-};
-
 struct Rgb {
   int red;
   int green;
   int blue;
 };
+
+struct Polygon {
+  Rgb averageColor;
+  QPoint topLeft;
+  QPoint bottomRight;
+};
+
 
 namespace Ui {
   class MainWindow;

@@ -66,3 +66,25 @@ int MainWindow::averagePixelBrightness(QImage *image, QPoint point)
           image->pixelColor(point).green() +
           image->pixelColor(point).blue()) / 3;
 }
+
+Rgb MainWindow::averagePolygonBrightness(QImage *image,
+                                         QPoint topLeft, QPoint bottomRight)
+{
+  int area = 0;
+  Rgb color = { 0, 0, 0 };
+
+  for (int x = topLeft.x(); x < bottomRight.x(); ++x)
+    for (int y = topLeft.y(); y < bottomRight.y(); ++y) {
+      ++area;
+
+      color.red += image->pixelColor(QPoint(x, y)).red();
+      color.green += image->pixelColor(QPoint(x, y)).green();
+      color.blue += image->pixelColor(QPoint(x, y)).blue();
+    }
+
+  color.red /= area;
+  color.green /= area;
+  color.blue /= area;
+
+  return color;
+}

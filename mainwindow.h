@@ -60,6 +60,8 @@ private:
   bool isBrightnessThreshold(QImage *image, QPoint topLeft, QPoint bottomRight);
   Rgb getRgb(QImage *image, QPoint point);
   int averagePixelBrightness(QImage *image, QPoint point);
+  Rgb averagePolygonBrightness(QImage *image,
+                               QPoint topLeft, QPoint bottomRight);
 
 private slots:
   // Button

@@ -2,6 +2,7 @@
 #include <QImage>
 #include <QPixmap>
 #include <QPoint>
+#include <QRgb>
 #include <QSize>
 #include "mainwindow.h"
 
@@ -45,6 +46,15 @@ bool MainWindow::isBrightnessThreshold(QImage *image,
     return true;
 
   return false;
+}
+
+Rgb MainWindow::getRgb(QImage *image, QPoint point)
+{
+  Rgb color = { image->pixelColor(point).red(),
+                image->pixelColor(point).green(),
+                image->pixelColor(point).blue() };
+
+  return color;
 }
 
 int MainWindow::averagePixelBrightness(QImage *image, QPoint point)

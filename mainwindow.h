@@ -18,6 +18,12 @@ struct Polygon {
   int averageColor;
 };
 
+struct Rgb {
+  int red;
+  int green;
+  int blue;
+};
+
 namespace Ui {
   class MainWindow;
 }
@@ -52,6 +58,7 @@ private:
   QImage *makeImage();
   bool isSizeThreshold(QPoint topLeft, QPoint bottomRight);
   bool isBrightnessThreshold(QImage *image, QPoint topLeft, QPoint bottomRight);
+  Rgb getRgb(QImage *image, QPoint point);
   int averagePixelBrightness(QImage *image, QPoint point);
 
 private slots:

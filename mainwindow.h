@@ -52,7 +52,7 @@ private:
   QImage *makeImage();
   bool isSizeThreshold(QPoint topLeft, QPoint bottomRight);
   bool isBrightnessThreshold(QImage *image, QPoint topLeft, QPoint bottomRight);
-  double averagePixelBrightness(QImage *image, QPoint point);
+  int averagePixelBrightness(QImage *image, QPoint point);
 
 private slots:
   // Button

@@ -1,4 +1,3 @@
-#include <cmath>
 #include <QColor>
 #include <QImage>
 #include <QPixmap>
@@ -32,36 +31,28 @@ bool MainWindow::isBrightnessThreshold(QImage *image,
   if (!image)
     throw Exception::nullPointer();
 
-  double polygonArea = 0,  polygonOnPoint = 0;
+  int minimum = 255, maximum = 0;
 
   for (int x = topLeft.x(); x < bottomRight.x(); ++x)
     for (int y = topLeft.y(); y < bottomRight.y(); ++y) {
-      polygonOnPoint += averagePixelBrightness(image, QPoint(x, y));
-      ++polygonArea;
+      int currentBrightness = averagePixelBrightness(image, QPoint(x, y));
+
+      minimum = (minimum > currentBrightness) ? currentBrightness : minimum;
+      maximum = (maximum < currentBrightness) ? currentBrightness : maximum;
     }
 
-  polygonOnPoint /= pow(polygonArea, 2.0);
-
-  double thresholdOnPoint = this->brightnessThreshold / polygonArea;
-
-  for (int x = topLeft.x(); x < bottomRight.x(); ++x)
-    for (int y = topLeft.y(); y < bottomRight.y(); ++y) {
-      double pointOnPolygon =
-          averagePixelBrightness(image, QPoint(x, y)) / polygonArea;
-
-      if (fabs(pointOnPolygon - polygonOnPoint) > thresholdOnPoint)
-        return true;
-    }
+  if (qAbs(maximum - minimum) > this->brightnessThreshold)
+    return true;
 
   return false;
 }
 
-double MainWindow::averagePixelBrightness(QImage *image, QPoint point)
+int MainWindow::averagePixelBrightness(QImage *image, QPoint point)
 {
   if (!image)
     throw Exception::nullPointer();
 
   return (image->pixelColor(point).red() +
           image->pixelColor(point).green() +
-          image->pixelColor(point).blue()) / 3.0;
+          image->pixelColor(point).blue()) / 3;
 }

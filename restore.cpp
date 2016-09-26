@@ -4,6 +4,7 @@
 #include <QPixmap>
 #include <QPoint>
 #include <QRect>
+#include <QStack>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 

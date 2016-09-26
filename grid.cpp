@@ -3,7 +3,6 @@
 #include <QPainter>
 #include <QPixmap>
 #include <QPoint>
-#include <QRect>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 

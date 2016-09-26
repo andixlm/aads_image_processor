@@ -3,8 +3,8 @@
 
 #include <QImage>
 #include <QMainWindow>
-#include <QStack>
 #include <QPoint>
+#include <QStack>
 #include <QWidget>
 
 namespace Exception {

@@ -16,7 +16,7 @@ void MainWindow::restoreImage()
   this->polygons.clear();
 
   QImage *stagedImage = makeImage();
-  QImage *finalImage = new QImage(ui->originalImage->pixmap()->toImage());
+  QImage *finalImage = makeImage();
 
   grid(originalImage, stagedImage, QPoint(0, 0), QPoint(256, 256));
 

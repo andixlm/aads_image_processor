@@ -29,6 +29,9 @@ void MainWindow::grid(QImage *originalImage, QImage *stagedImage,
   if (!originalImage || !stagedImage)
     throw Exception::nullPointer();
 
+  this->polygons.push( { averagePolygonBrightness(originalImage, topLeft, bottomRight),
+                          topLeft, bottomRight } );
+
   if (isBrightnessThreshold(originalImage, topLeft, bottomRight) &&
       !isSizeThreshold(topLeft, bottomRight)) {
 
@@ -52,10 +55,6 @@ void MainWindow::grid(QImage *originalImage, QImage *stagedImage,
            QPoint(middleWidth, topLeft.y()), bottomRight);
     }
   }
-
-  if (isSizeThreshold(topLeft, bottomRight))
-    this->polygons.push( { averagePolygonBrightness(originalImage, topLeft, bottomRight),
-                          topLeft, bottomRight } );
 
   drawRectangle(stagedImage, topLeft, bottomRight);
 }

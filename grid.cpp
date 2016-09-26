@@ -53,9 +53,9 @@ void MainWindow::grid(QImage *originalImage, QImage *stagedImage,
     }
   }
 
-  Polygon polygon = { averagePolygonBrightness(originalImage, topLeft, bottomRight),
-                      topLeft, bottomRight };
-  this->polygons.push(polygon);
+  if (isSizeThreshold(topLeft, bottomRight))
+    this->polygons.push( { averagePolygonBrightness(originalImage, topLeft, bottomRight),
+                          topLeft, bottomRight } );
 
   drawRectangle(stagedImage, topLeft, bottomRight);
 }

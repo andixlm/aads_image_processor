@@ -9,10 +9,10 @@ void MainWindow::on_modeSwitcher_currentIndexChanged(int value)
     case bGrid:
       processImage = &MainWindow::buildGrid;
       break;
-/*
     case rImage:
       processImage = &MainWindow::restoreImage;
       break;
+/*
     case mStrokes:
       processImage = &MainWindow::markStrokes;
       break;

@@ -10,6 +10,7 @@ SOURCES += main.cpp mainwindow.cpp \
         combobox.cpp \
         grid.cpp \
         image.cpp \
+        restore.cpp \
         spinbox.cpp
 
 HEADERS += mainwindow.h

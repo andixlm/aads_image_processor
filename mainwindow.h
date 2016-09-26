@@ -50,6 +50,8 @@ private:
   void drawRectangle(QImage *image, QPoint topLeft, QPoint bottomRight);
 
   void restoreImage();
+  void fillRectangle(QImage *image, Polygon polygon);
+
   void markStrokes();
 
   // Image structures

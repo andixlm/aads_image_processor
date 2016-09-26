@@ -9,27 +9,16 @@
 
 void MainWindow::restoreImage()
 {
-  QImage *originalImage = new QImage(ui->originalImage->pixmap()->toImage());
-  if (!originalImage)
+  buildGrid();
+
+  QImage *finalImage = makeImage();
+  if (!finalImage)
     throw Exception::outOfMemory();
 
-  this->polygons.clear();
-
-  QImage *stagedImage = makeImage();
-  QImage *finalImage = makeImage();
-
-  grid(originalImage, stagedImage, QPoint(0, 0), QPoint(256, 256));
-
-  ui->stageOneImage->setPixmap(QPixmap::fromImage(*stagedImage));
-
-  for (QStack<Polygon>::iterator itr = polygons.begin(), end = polygons.end();
-       itr != end; ++itr)
-    fillRectangle(finalImage, *itr);
+  while (!polygons.isEmpty())
+    fillRectangle(finalImage, polygons.pop());
 
   ui->finalImage->setPixmap(QPixmap::fromImage(*finalImage));
-
-  delete originalImage;
-  delete stagedImage;
   delete finalImage;
 }
 

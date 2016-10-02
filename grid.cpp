@@ -30,6 +30,10 @@ void MainWindow::grid(QImage *originalImage, QImage *stagedImage,
   if (!originalImage || !stagedImage)
     throw Exception::nullPointer();
 
+  this->root = treeAdd(this->root, { averagePolygonBrightness(originalImage,
+                                     topLeft, bottomRight),
+                                     topLeft, bottomRight });
+
   if (isBrightnessThreshold(originalImage, topLeft, bottomRight) &&
       !isSizeThreshold(topLeft, bottomRight)) {
 
@@ -52,10 +56,7 @@ void MainWindow::grid(QImage *originalImage, QImage *stagedImage,
       grid(originalImage, stagedImage,
            QPoint(middleWidth, topLeft.y()), bottomRight);
     }
-  } else
-    this->polygons.push( { averagePolygonBrightness(originalImage,
-                         topLeft, bottomRight),
-                         topLeft, bottomRight } );
+  }
 
   drawRectangle(stagedImage, topLeft, bottomRight);
 }

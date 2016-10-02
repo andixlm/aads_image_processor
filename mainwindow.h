@@ -24,6 +24,12 @@ struct Polygon {
   QPoint bottomRight;
 };
 
+struct treeNode {
+  Polygon polygon;
+  treeNode *left;
+  treeNode *right;
+};
+
 
 namespace Ui {
   class MainWindow;

@@ -52,9 +52,8 @@ void MainWindow::grid(QImage *originalImage, QImage *stagedImage,
       grid(originalImage, stagedImage,
            QPoint(middleWidth, topLeft.y()), bottomRight);
     }
-  }
-
-  this->polygons.push( { averagePolygonBrightness(originalImage,
+  } else
+    this->polygons.push( { averagePolygonBrightness(originalImage,
                          topLeft, bottomRight),
                          topLeft, bottomRight } );
 

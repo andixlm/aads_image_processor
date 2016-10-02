@@ -11,7 +11,8 @@ SOURCES += main.cpp mainwindow.cpp \
         grid.cpp \
         image.cpp \
         restore.cpp \
-        spinbox.cpp
+        spinbox.cpp \
+        tree.cpp
 
 HEADERS += mainwindow.h
 

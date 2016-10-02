@@ -30,6 +30,9 @@ struct treeNode {
   treeNode *right;
 };
 
+treeNode *treeAdd(treeNode *root, Polygon polygon);
+int comparePolygonSizes(Polygon alpha, Polygon beta);
+int comparePolygonPositions(Polygon alpha, Polygon beta);
 
 namespace Ui {
   class MainWindow;
@@ -61,6 +64,7 @@ private:
   void markStrokes();
 
   // Image structures
+  treeNode *root;
   QStack<Polygon> polygons;
 
   // Image tools

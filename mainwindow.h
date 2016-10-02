@@ -19,7 +19,7 @@ struct Rgb {
 };
 
 struct Polygon {
-  Rgb averageColor;
+  Rgb color;
   QPoint topLeft;
   QPoint bottomRight;
 };

@@ -31,8 +31,8 @@ void MainWindow::fillRectangle(QImage *image, Polygon polygon)
   QPainter painter;
   painter.begin(image);
   painter.fillRect(QRect(polygon.topLeft, polygon.bottomRight),
-                   QColor(polygon.averageColor.red,
-                          polygon.averageColor.green,
-                          polygon.averageColor.blue));
+                   QColor(polygon.color.red,
+                          polygon.color.green,
+                          polygon.color.blue));
   painter.end();
 }

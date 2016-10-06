@@ -8,7 +8,7 @@ int comparePolygonSizes(Polygon alpha, Polygon beta)
   int widthBeta = beta.bottomRight.x() - beta.topLeft.x();
   int heightBeta = beta.bottomRight.y() - beta.topLeft.y();
 
-  if (widthAlpha >= widthBeta || heightAlpha >= heightBeta)
+  if (widthAlpha > widthBeta || heightAlpha > heightBeta)
     return 1;
   else
     return -1;

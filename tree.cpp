@@ -16,11 +16,22 @@ int comparePolygonSizes(Polygon alpha, Polygon beta)
 
 int comparePolygonPositions(Polygon alpha, Polygon beta)
 {
-  if (alpha.topLeft.x() > beta.topLeft.x() ||
-      alpha.topLeft.y() > beta.topLeft.y())
-    return 1;
+  int width = beta.bottomRight.x() - beta.topLeft.x();
+  int height = beta.bottomRight.y() - beta.topLeft.y();
+
+  int averageWidth = (beta.bottomRight.x() + beta.topLeft.x()) / 2;
+  int averageHeight = (beta.bottomRight.y() + beta.topLeft.y()) / 2;
+
+  if (width == height)
+    if (alpha.topLeft.x() < averageWidth)
+      return -1;
+    else
+      return 1;
   else
-    return -1;
+    if (alpha.topLeft.y() < averageHeight)
+      return -1;
+    else
+      return 1;
 }
 
 treeNode *treeAdd(treeNode *root, Polygon polygon)
@@ -28,12 +39,10 @@ treeNode *treeAdd(treeNode *root, Polygon polygon)
   if (!root)
     return new treeNode { polygon, nullptr, nullptr };
 
-  if (comparePolygonSizes(polygon, root->polygon) < 0) {
-    if (comparePolygonPositions(polygon, root->polygon) < 0)
-      root->left = treeAdd(root->left, polygon);
-    else
-      root->right = treeAdd(root->right, polygon);
-  }
+  if (comparePolygonPositions(polygon, root->polygon) < 0)
+    root->left = treeAdd(root->left, polygon);
+  else
+    root->right = treeAdd(root->right, polygon);
 
   return root;
 }

@@ -1,19 +1,5 @@
 #include "mainwindow.h"
 
-int comparePolygonSizes(Polygon alpha, Polygon beta)
-{
-  int widthAlpha = alpha.bottomRight.x() - alpha.topLeft.x();
-  int heightAlpha = alpha.bottomRight.y() - alpha.topLeft.y();
-
-  int widthBeta = beta.bottomRight.x() - beta.topLeft.x();
-  int heightBeta = beta.bottomRight.y() - beta.topLeft.y();
-
-  if (widthAlpha > widthBeta || heightAlpha > heightBeta)
-    return 1;
-  else
-    return -1;
-}
-
 int comparePolygonPositions(Polygon alpha, Polygon beta)
 {
   int width = beta.bottomRight.x() - beta.topLeft.x();

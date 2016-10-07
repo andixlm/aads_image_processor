@@ -31,7 +31,6 @@ struct treeNode {
 };
 
 treeNode *treeAdd(treeNode *root, Polygon polygon);
-int comparePolygonSizes(Polygon alpha, Polygon beta);
 int comparePolygonPositions(Polygon alpha, Polygon beta);
 
 namespace Ui {

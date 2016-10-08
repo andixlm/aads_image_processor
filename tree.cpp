@@ -32,3 +32,14 @@ treeNode *treeAdd(treeNode *root, Polygon polygon)
 
   return root;
 }
+
+void treeClear(treeNode *root)
+{
+  if (!root)
+    return;
+
+  treeClear(root->left);
+  treeClear(root->right);
+
+  delete root;
+}

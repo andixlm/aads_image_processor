@@ -32,6 +32,7 @@ struct treeNode {
 
 treeNode *treeAdd(treeNode *root, Polygon polygon);
 int comparePolygonPositions(Polygon alpha, Polygon beta);
+void treeClear(treeNode *root);
 
 namespace Ui {
   class MainWindow;

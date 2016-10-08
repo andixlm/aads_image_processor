@@ -16,8 +16,7 @@ void MainWindow::restoreImage()
   if (!finalImage)
     throw Exception::outOfMemory();
 
-  while (!polygons.isEmpty())
-    fillRectangle(finalImage, polygons.pop());
+  // TODO: Use tree
 
   ui->finalImage->setPixmap(QPixmap::fromImage(*finalImage));
   delete finalImage;

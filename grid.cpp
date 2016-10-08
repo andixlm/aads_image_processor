@@ -14,7 +14,7 @@ void MainWindow::buildGrid()
 
   QImage *stagedImage = makeImage();
 
-  this->polygons.clear();
+  // TODO: Clear tree
 
   grid(originalImage, stagedImage, QPoint(0, 0), QPoint(256, 256));
 

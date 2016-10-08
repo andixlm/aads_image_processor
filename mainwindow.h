@@ -64,7 +64,6 @@ private:
 
   // Image structures
   treeNode *root;
-  QStack<Polygon> polygons;
 
   // Image tools
   QImage *makeImage();

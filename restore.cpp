@@ -16,10 +16,22 @@ void MainWindow::restoreImage()
   if (!finalImage)
     throw Exception::outOfMemory();
 
-  // TODO: Use tree
+  restoreImageByTree(this->root, finalImage);
 
   ui->finalImage->setPixmap(QPixmap::fromImage(*finalImage));
   delete finalImage;
+}
+
+void MainWindow::restoreImageByTree(treeNode *root, QImage *image)
+{
+  if (!root)
+    return;
+
+  restoreImageByTree(root->left, image);
+  restoreImageByTree(root->right, image);
+
+  if (!root->left && !root->right)
+    fillRectangle(image, root->polygon);
 }
 
 void MainWindow::fillRectangle(QImage *image, Polygon polygon)

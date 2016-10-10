@@ -53,13 +53,12 @@ treeNode *treeAdd(treeNode *root, Polygon polygon)
   return root;
 }
 
-int *treeToArray(treeNode *root)
+int *treeToArray(treeNode *root, int size)
 {
   QQueue<treeNode *> processingNode;
   processingNode.enqueue(root);
 
-  // TODO: Make size dynamic
-  int *array = new int[8192];
+  int *array = new int[1 + size * 3 + 1];
 
   const int packageSize = 3;
   int currentIdx = 0, nextEmptyPackageIdx = 1;

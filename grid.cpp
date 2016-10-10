@@ -19,7 +19,8 @@ void MainWindow::buildGrid()
 
   grid(originalImage, stagedImage, QPoint(0, 0), QPoint(256, 256));
 
-  this->treeArray = treeToArray(this->root);
+  this->arraySize = treeSize(this->root);
+  this->treeArray = treeToArray(this->root, this->arraySize);
 
   ui->stageOneImage->setPixmap(QPixmap::fromImage(*stagedImage));
 

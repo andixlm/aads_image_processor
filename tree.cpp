@@ -1,6 +1,25 @@
 #include <QQueue>
 #include "mainwindow.h"
 
+int treeSize(treeNode *root) {
+  if (!root->left && !root->right)
+    return 1;
+
+  int leftCount, rightCount;
+
+  if (root->left)
+    leftCount = treeSize(root->left);
+  else
+    leftCount = 0;
+
+  if (root->right)
+    rightCount = treeSize(root->right);
+  else
+    rightCount = 0;
+
+  return leftCount + rightCount + 1;
+}
+
 int comparePolygonPositions(Polygon alpha, Polygon beta)
 {
   int width = beta.bottomRight.x() - beta.topLeft.x();

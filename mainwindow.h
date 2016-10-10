@@ -59,10 +59,12 @@ private:
             QPoint topLeft, QPoint bottomRight);
   void drawRectangle(QImage *image, QPoint topLeft, QPoint bottomRight);
 
+  // Image restore
   void restoreImage();
   void restoreImageByTree(treeNode *root, QImage *image);
   void fillRectangle(QImage *image, Polygon polygon);
 
+  // Image mark
   void markStrokes();
 
   // Image structures

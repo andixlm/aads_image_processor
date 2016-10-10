@@ -4,6 +4,7 @@
 #include <QPoint>
 #include <QRgb>
 #include <QSize>
+
 #include "mainwindow.h"
 
 QImage *MainWindow::makeImage()

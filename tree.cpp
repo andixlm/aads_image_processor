@@ -1,3 +1,4 @@
+#include <QQueue>
 #include "mainwindow.h"
 
 int comparePolygonPositions(Polygon alpha, Polygon beta)
@@ -31,6 +32,59 @@ treeNode *treeAdd(treeNode *root, Polygon polygon)
     root->right = treeAdd(root->right, polygon);
 
   return root;
+}
+
+int *treeToArray(treeNode *root)
+{
+  QQueue<treeNode *> processingNode;
+  processingNode.enqueue(root);
+
+  // TODO: Make size dynamic
+  int *array = new int[8192];
+
+  const int packageSize = 3;
+  int currentIdx = 0, nextEmptyPackageIdx = 1;
+
+  array[currentIdx] = -nextEmptyPackageIdx;
+  array[nextEmptyPackageIdx] = currentIdx;
+
+  QQueue<int> emptyPackageIdx;
+  emptyPackageIdx.enqueue(nextEmptyPackageIdx);
+
+  nextEmptyPackageIdx += packageSize;
+
+  while (!processingNode.empty()) {
+    currentIdx = emptyPackageIdx.dequeue();
+    treeNode *currentNode = processingNode.dequeue();
+
+    if (currentNode->left) {
+      processingNode.enqueue(currentNode->left);
+
+      array[++currentIdx] = -nextEmptyPackageIdx;
+      array[nextEmptyPackageIdx] = currentIdx;
+
+      emptyPackageIdx.enqueue(nextEmptyPackageIdx);
+
+      nextEmptyPackageIdx += packageSize;
+    } else
+      array[++currentIdx] = 0;
+
+    if (currentNode->right) {
+      processingNode.enqueue(currentNode->right);
+
+      array[++currentIdx] = -nextEmptyPackageIdx;
+      array[nextEmptyPackageIdx] = currentIdx;
+
+      emptyPackageIdx.enqueue(nextEmptyPackageIdx);
+
+      nextEmptyPackageIdx += packageSize;
+    } else
+      array[++currentIdx] = 0;
+  }
+
+  array[++currentIdx] = 0;
+
+  return array;
 }
 
 void treeClear(treeNode *root)

@@ -32,6 +32,7 @@ struct treeNode {
 
 treeNode *treeAdd(treeNode *root, Polygon polygon);
 int comparePolygonPositions(Polygon alpha, Polygon beta);
+int* treeToArray(treeNode *);
 void treeClear(treeNode *root);
 
 namespace Ui {
@@ -66,6 +67,7 @@ private:
 
   // Image structures
   treeNode *root;
+  int *treeArray;
 
   // Image tools
   QImage *makeImage();

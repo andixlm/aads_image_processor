@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
   // Set up default parameters.
   root = nullptr;
+  treeArray = nullptr;
   processImage = &MainWindow::buildGrid;
   sizeThreshold = ui->sizeThreshold->value();
   brightnessThreshold = ui->brightnessThreshold->value();

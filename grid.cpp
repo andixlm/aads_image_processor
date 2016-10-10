@@ -1,10 +1,32 @@
+#include <QFile>
 #include <QColor>
 #include <QImage>
 #include <QPainter>
 #include <QPixmap>
 #include <QPoint>
+#include <QTextStream>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
+void printToFile(int *array, int size)
+{
+  QFile file("image.txt");
+  file.open(QIODevice::WriteOnly | QIODevice::Text);
+
+  QTextStream outStream(&file);
+  int idx = 1;
+  size = 1 + size * 3 + 1;
+
+  outStream << array[0] << '\n';
+  while (idx < size) {
+    outStream << array[idx] << ' ';
+    if (idx % 3 == 0)
+      outStream << '\n';
+    idx++;
+  }
+
+  file.close();
+}
 
 void MainWindow::buildGrid()
 {
@@ -21,6 +43,8 @@ void MainWindow::buildGrid()
 
   this->arraySize = treeSize(this->root);
   this->treeArray = treeToArray(this->root, this->arraySize);
+
+  printToFile(this->treeArray, this->arraySize);
 
   ui->stageOneImage->setPixmap(QPixmap::fromImage(*stagedImage));
 

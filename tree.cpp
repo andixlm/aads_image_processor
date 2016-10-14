@@ -20,6 +20,17 @@ int treeSize(treeNode *root) {
   return leftCount + rightCount + 1;
 }
 
+int treeLeafs(treeNode *root)
+{
+  if (!root)
+    return 0;
+
+  if (!root->left && !root->right)
+    return 1;
+
+  return treeLeafs(root->left) + treeLeafs(root->right);
+}
+
 int comparePolygonPositions(Polygon alpha, Polygon beta)
 {
   int width = beta.bottomRight.x() - beta.topLeft.x();
@@ -53,15 +64,20 @@ treeNode *treeAdd(treeNode *root, Polygon polygon)
   return root;
 }
 
-int *treeToArray(treeNode *root, int size)
+int *treeToArray(treeNode *root, int fullTreeSize, int leafTreeSize)
 {
   QQueue<treeNode *> processingNode;
   processingNode.enqueue(root);
 
-  int *array = new int[1 + size * 3 + 1];
-
   const int packageSize = 3;
+  const int polygonSize = 5;
+
+  int *array = new int[1 + packageSize * fullTreeSize +
+      packageSize +
+      polygonSize * leafTreeSize + 1];
+
   int currentIdx = 0, nextEmptyPackageIdx = 1;
+  int polygonIdx = packageSize * fullTreeSize + packageSize + 1;
 
   array[currentIdx] = -nextEmptyPackageIdx;
   array[nextEmptyPackageIdx] = currentIdx;
@@ -75,7 +91,8 @@ int *treeToArray(treeNode *root, int size)
     currentIdx = emptyPackageIdx.dequeue();
     treeNode *currentNode = processingNode.dequeue();
 
-    if (currentNode->left) {
+    if (currentNode->left || currentNode->right) {
+      // Left child
       processingNode.enqueue(currentNode->left);
 
       array[++currentIdx] = -nextEmptyPackageIdx;
@@ -84,10 +101,7 @@ int *treeToArray(treeNode *root, int size)
       emptyPackageIdx.enqueue(nextEmptyPackageIdx);
 
       nextEmptyPackageIdx += packageSize;
-    } else
-      array[++currentIdx] = 0;
-
-    if (currentNode->right) {
+      // Right child
       processingNode.enqueue(currentNode->right);
 
       array[++currentIdx] = -nextEmptyPackageIdx;
@@ -96,11 +110,24 @@ int *treeToArray(treeNode *root, int size)
       emptyPackageIdx.enqueue(nextEmptyPackageIdx);
 
       nextEmptyPackageIdx += packageSize;
-    } else
-      array[++currentIdx] = 0;
+    } else {
+      array[++currentIdx] = polygonIdx;
+      array[++currentIdx] = polygonIdx;
+
+      array[polygonIdx++] = currentNode->polygon.topLeft.x();
+      array[polygonIdx++] = currentNode->polygon.topLeft.y();
+      array[polygonIdx++] = currentNode->polygon.bottomRight.x();
+      array[polygonIdx++] = currentNode->polygon.bottomRight.y();
+      array[polygonIdx++] = (currentNode->polygon.color.red +
+                             currentNode->polygon.color.green +
+                             currentNode->polygon.color.blue) / 3;
+    }
   }
 
-  array[++currentIdx] = 0;
+  for (int count = 0; count < packageSize; ++count)
+    array[++currentIdx] = 0;
+
+  array[polygonIdx] = 0;
 
   return array;
 }

@@ -8,21 +8,36 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-void printToFile(int *array, int size)
+void printToFile(int *array, int fullTreeSize, int leafTreeSize)
 {
   QFile file("image.txt");
   file.open(QIODevice::WriteOnly | QIODevice::Text);
 
   QTextStream outStream(&file);
-  int idx = 1;
-  size = 1 + size * 3 + 1;
+
+  const int packageSize = 3;
+  const int polygonSize = 5;
+
+  int idx = 1, dividerIdx = packageSize * fullTreeSize + packageSize;
+  int size = 1 + packageSize * fullTreeSize +
+      packageSize +
+      polygonSize * leafTreeSize + 1;
 
   outStream << array[0] << '\n';
-  while (idx < size) {
+
+  while (idx <= dividerIdx) {
     outStream << array[idx] << ' ';
     if (idx % 3 == 0)
       outStream << '\n';
-    idx++;
+    ++idx;
+  }
+
+  idx = 1;
+  while (idx + dividerIdx < size) {
+    outStream << array[idx + dividerIdx] << ' ';
+    if (idx % 5 == 0)
+      outStream << '\n';
+    ++idx;
   }
 
   file.close();
@@ -39,12 +54,17 @@ void MainWindow::buildGrid()
   treeClear(this->root);
   this->root = nullptr;
 
+  delete this->treeArray;
+  this->treeArray = nullptr;
+
   grid(originalImage, stagedImage, QPoint(0, 0), QPoint(256, 256));
 
-  this->arraySize = treeSize(this->root);
-  this->treeArray = treeToArray(this->root, this->arraySize);
+  this->fullTreeSize = treeSize(this->root);
+  this->leafTreeSize = treeLeafs(this->root);
+  this->treeArray = treeToArray(this->root, this->fullTreeSize,
+                                this->leafTreeSize);
 
-  printToFile(this->treeArray, this->arraySize);
+  printToFile(this->treeArray, this->fullTreeSize, this->leafTreeSize);
 
   ui->stageOneImage->setPixmap(QPixmap::fromImage(*stagedImage));
 

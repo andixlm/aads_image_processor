@@ -88,7 +88,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Open</string>
+     <string>Open image</string>
     </property>
    </widget>
    <widget class="QPushButton" name="closeButton">
@@ -249,6 +249,19 @@
     </property>
     <property name="value">
      <number>13</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="openFileButton">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>280</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Open file</string>
     </property>
    </widget>
   </widget>

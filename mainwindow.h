@@ -72,6 +72,7 @@ private:
   // Image structures
   treeNode *root;
   int *treeArray;
+  int arraySize;
   int fullTreeSize;
   int leafTreeSize;
 
@@ -87,6 +88,7 @@ private:
 private slots:
   // Button
   void on_openButton_clicked();
+  void on_openFileButton_clicked();
   void on_closeButton_clicked();
   void on_clearButton_clicked();
   void on_runButton_clicked();

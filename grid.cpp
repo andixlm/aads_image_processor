@@ -104,8 +104,7 @@ void MainWindow::grid(QImage *originalImage, QImage *stagedImage,
       grid(originalImage, stagedImage,
            QPoint(middleWidth, topLeft.y()), bottomRight);
     }
-  } else
-    drawRectangle(stagedImage, topLeft, bottomRight);
+  }
 }
 
 void MainWindow::drawRectangle(QImage *image, QPoint topLeft, QPoint bottomRight)

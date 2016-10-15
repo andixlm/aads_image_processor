@@ -35,6 +35,7 @@ int treeLeafs(treeNode *root);
 treeNode *treeAdd(treeNode *root, Polygon polygon);
 int comparePolygonPositions(Polygon alpha, Polygon beta);
 int* treeToArray(treeNode *, int fullTreeSize, int leafTreeSize);
+treeNode *arrayToTree(int *array);
 void treeClear(treeNode *root);
 
 namespace Ui {

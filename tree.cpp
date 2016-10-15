@@ -132,6 +132,53 @@ int *treeToArray(treeNode *root, int fullTreeSize, int leafTreeSize)
   return array;
 }
 
+treeNode *arrayToTree(int *array)
+{
+  QQueue<treeNode *> nodes;
+  QQueue<int> indexes;
+
+  treeNode *root = nullptr;
+
+  int idx = 0;
+  if (array[idx] < 0) {
+    indexes.enqueue(qAbs(array[idx]));
+
+    root = new treeNode { Polygon(), nullptr, nullptr };
+    nodes.enqueue(root);
+  } else
+    return root;
+
+  while (!nodes.empty()) {
+    idx = indexes.dequeue();
+    treeNode *currentNode = nodes.dequeue();
+
+    if (array[++idx] < 0) {
+      indexes.enqueue(qAbs(array[idx]));
+
+      currentNode->left = new treeNode { Polygon(), nullptr, nullptr };
+      nodes.enqueue(currentNode->left);
+    }
+
+    if (array[++idx] < 0) {
+      indexes.enqueue(qAbs(array[idx]));
+
+      currentNode->right = new treeNode { Polygon(), nullptr, nullptr };
+      nodes.enqueue(currentNode->right);
+    } else if (array[idx] > 0){
+      int polygonIdx = array[idx];
+
+      currentNode->polygon.topLeft.setX(array[polygonIdx++]);
+      currentNode->polygon.topLeft.setY(array[polygonIdx++]);
+      currentNode->polygon.bottomRight.setX(array[polygonIdx++]);
+      currentNode->polygon.bottomRight.setY(array[polygonIdx++]);
+      currentNode->polygon.color.red = currentNode->polygon.color.green =
+          currentNode->polygon.color.blue = array[polygonIdx];
+    }
+  }
+
+  return root;
+}
+
 void treeClear(treeNode *root)
 {
   if (!root)

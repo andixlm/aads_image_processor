@@ -35,6 +35,9 @@ void MainWindow::on_openFileButton_clicked()
 
   input.seek(0);
 
+  treeClear(this->root);
+  this->root = nullptr;
+
   if (this->treeArray)
     delete this->treeArray;
 
@@ -47,6 +50,8 @@ void MainWindow::on_openFileButton_clicked()
   this->arraySize = size;
 
   file.close();
+
+  this->root = arrayToTree(this->treeArray);
 }
 
 void MainWindow::on_closeButton_clicked()

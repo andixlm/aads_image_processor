@@ -1,42 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QImage>
 #include <QMainWindow>
-#include <QPoint>
-#include <QStack>
 #include <QWidget>
-
-namespace Exception {
-  class nullPointer {};
-  class outOfMemory {};
-}
-
-struct Rgb {
-  int red;
-  int green;
-  int blue;
-};
-
-struct Polygon {
-  Rgb color;
-  QPoint topLeft;
-  QPoint bottomRight;
-};
-
-struct treeNode {
-  Polygon polygon;
-  treeNode *left;
-  treeNode *right;
-};
-
-int treeSize(treeNode *root);
-int treeLeafs(treeNode *root);
-treeNode *treeAdd(treeNode *root, Polygon polygon);
-int comparePolygonPositions(Polygon alpha, Polygon beta);
-int* treeToArray(treeNode *, int fullTreeSize, int leafTreeSize);
-treeNode *arrayToTree(int *array);
-void treeClear(treeNode *root);
+#include "tree.h"
 
 namespace Ui {
   class MainWindow;
@@ -46,57 +13,40 @@ class MainWindow : public QMainWindow {
   Q_OBJECT
 
 public:
-  explicit MainWindow(QWidget *parent = nullptr);
+  explicit MainWindow(QWidget* parent = nullptr);
   ~MainWindow();
 
 private:
+  Ui::MainWindow* ui;
+
+  Tree::node* imageTree;
+  int* imageArray;
+
+  int imageSize;
   int sizeThreshold;
   int brightnessThreshold;
 
-  Ui::MainWindow *ui;
+  void cleanUpImageData();
 
-  void (MainWindow::*processImage)();
-  // Image grid
+  void (MainWindow::* processImage)();
   void buildGrid();
-  void grid(QImage *originalImage, QImage *stagedImage,
-            QPoint topLeft, QPoint bottomRight);
-  void drawRectangle(QImage *image, QPoint topLeft, QPoint bottomRight);
-
-  // Image restore
   void restoreImage();
-  void restoreImageByTree(treeNode *root, QImage *image);
-  void fillRectangle(QImage *image, Polygon polygon);
-
-  // Image mark
   void markStrokes();
 
-  // Image structures
-  treeNode *root;
-  int *treeArray;
-  int arraySize;
-  int fullTreeSize;
-  int leafTreeSize;
-
-  // Image tools
-  QImage *makeImage();
-  bool isSizeThreshold(QPoint topLeft, QPoint bottomRight);
-  bool isBrightnessThreshold(QImage *image, QPoint topLeft, QPoint bottomRight);
-  Rgb getRgb(QImage *image, QPoint point);
-  int averagePixelBrightness(QImage *image, QPoint point);
-  Rgb averagePolygonBrightness(QImage *image,
-                               QPoint topLeft, QPoint bottomRight);
-
 private slots:
-  // Button
-  void on_openButton_clicked();
+  // Buttons
+  void on_openImageButton_clicked();
   void on_openFileButton_clicked();
+  void on_saveToFileButton_clicked();
   void on_closeButton_clicked();
   void on_clearButton_clicked();
   void on_runButton_clicked();
-  // SpinBox
+
+  // Value selectors
   void on_sizeThreshold_valueChanged(int value);
   void on_brightnessThreshold_valueChanged(int value);
-  // ComboBox
+
+  // Switchers
   void on_modeSwitcher_currentIndexChanged(int value);
 };
 

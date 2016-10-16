@@ -1,19 +1,20 @@
 #include "mainwindow.h"
 
-enum { bGrid, rImage, mStrokes };
+enum { _buildGrid, _restoreImage, _markStrokes };
 
 void MainWindow::on_modeSwitcher_currentIndexChanged(int value)
 {
   switch (value)
   {
-    case bGrid:
-      processImage = &MainWindow::buildGrid;
+    case _buildGrid:
+      this->processImage = &MainWindow::buildGrid;
       break;
-    case rImage:
-      processImage = &MainWindow::restoreImage;
+
+    case _restoreImage:
+      this->processImage = &MainWindow::restoreImage;
       break;
 /*
-    case mStrokes:
+    case _markStrokes:
       processImage = &MainWindow::markStrokes;
       break;
 */

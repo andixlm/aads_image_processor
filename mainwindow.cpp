@@ -3,16 +3,16 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QWidget* parent) :
   QMainWindow(parent),
   ui(new Ui::MainWindow)
 {
   ui->setupUi(this);
 
-  // Set up default parameters.
-  root = nullptr;
-  treeArray = nullptr;
+  imageTree = nullptr;
+  imageArray = nullptr;
   processImage = &MainWindow::buildGrid;
+  imageSize = 256;
   sizeThreshold = ui->sizeThreshold->value();
   brightnessThreshold = ui->brightnessThreshold->value();
 }

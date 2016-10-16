@@ -2,73 +2,56 @@
 #include <QPixmap>
 #include <QString>
 #include <QTextStream>
+#include "exception.h"
+#include "file.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-void MainWindow::on_openButton_clicked()
-{
-  const QPixmap *image = new QPixmap(
-        QFileDialog::getOpenFileName(nullptr, QString("Open image")));
+const QString openImage = "Open image";
 
-  if (!image)
+void MainWindow::on_openImageButton_clicked()
+{
+  const QPixmap* image =
+      new QPixmap(QFileDialog::getOpenFileName(nullptr, openImage));
+  if (image == nullptr)
     throw Exception::outOfMemory();
 
-  if (!image->isNull())
+  if (!image->isNull()) {
+    MainWindow::on_closeButton_clicked();
     ui->originalImage->setPixmap(*image);
+  }
   else
     delete image;
 }
 
 void MainWindow::on_openFileButton_clicked()
 {
-  QFile file(QFileDialog::getOpenFileName(nullptr, QString("Open text file")));
-  file.open(QIODevice::ReadOnly | QIODevice::Text);
+  cleanUpImageData();
 
-  QTextStream input(&file);
+  this->imageArray = readFile();
+  this->imageTree = Tree::toTree(this->imageArray);
+}
 
-  int size = 0;
-  while(!input.atEnd()) {
-    int temp;
-    input >> temp;
-    ++size;
-  }
+void MainWindow::on_saveToFileButton_clicked()
+{
+  if (this->imageArray == nullptr)
+    return;
 
-  input.seek(0);
-
-  treeClear(this->root);
-  this->root = nullptr;
-
-  if (this->treeArray)
-    delete this->treeArray;
-
-  this->treeArray = new int[size];
-
-  int idx = 0;
-  while(!input.atEnd())
-    input >> this->treeArray[idx++];
-
-  this->arraySize = size;
-
-  file.close();
-
-  this->root = arrayToTree(this->treeArray);
+  writeFile(this->imageArray);
 }
 
 void MainWindow::on_closeButton_clicked()
 {
+  cleanUpImageData();
+
   if (ui->originalImage->pixmap() != nullptr) {
     ui->originalImage->clear();
     delete ui->originalImage->pixmap();
   }
 
-  if (ui->stageOneImage->pixmap() != nullptr) {
-    ui->stageOneImage->clear();
-    delete ui->stageOneImage->pixmap();
-  }
-
-  if (ui->stageTwoImage->pixmap() != nullptr) {
-    ui->stageTwoImage->clear();
-    delete ui->stageTwoImage->pixmap();
+  if (ui->stagedImage->pixmap() != nullptr) {
+    ui->stagedImage->clear();
+    delete ui->stagedImage->pixmap();
   }
 
   if (ui->finalImage->pixmap() != nullptr) {
@@ -79,14 +62,11 @@ void MainWindow::on_closeButton_clicked()
 
 void MainWindow::on_clearButton_clicked()
 {
-  if (ui->stageOneImage->pixmap() != nullptr) {
-    ui->stageOneImage->clear();
-    delete ui->stageOneImage->pixmap();
-  }
+  cleanUpImageData();
 
-  if (ui->stageTwoImage->pixmap() != nullptr) {
-    ui->stageTwoImage->clear();
-    delete ui->stageTwoImage->pixmap();
+  if (ui->stagedImage->pixmap() != nullptr) {
+    ui->stagedImage->clear();
+    delete ui->stagedImage->pixmap();
   }
 
   if (ui->finalImage->pixmap() != nullptr) {
@@ -97,8 +77,5 @@ void MainWindow::on_clearButton_clicked()
 
 void MainWindow::on_runButton_clicked()
 {
-  if (ui->originalImage->pixmap() == nullptr)
-    return;
-
   (this->*processImage)();
 }

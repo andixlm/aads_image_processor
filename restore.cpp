@@ -1,49 +1,27 @@
-#include <QColor>
 #include <QImage>
-#include <QPainter>
 #include <QPixmap>
-#include <QPoint>
-#include <QRect>
-#include <QStack>
+#include "exception.h"
+#include "image.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 void MainWindow::restoreImage()
 {
-  buildGrid();
-
-  QImage *finalImage = makeImage();
-  if (!finalImage)
-    throw Exception::outOfMemory();
-
-  restoreImageByTree(this->root, finalImage);
-
-  ui->finalImage->setPixmap(QPixmap::fromImage(*finalImage));
-  delete finalImage;
-}
-
-void MainWindow::restoreImageByTree(treeNode *root, QImage *image)
-{
-  if (!root)
+  if (this->imageTree == nullptr ||
+      this->imageArray == nullptr)
     return;
 
-  restoreImageByTree(root->left, image);
-  restoreImageByTree(root->right, image);
+  QImage* finalImage = makeImage(this->imageSize);
+  if (finalImage == nullptr)
+    throw Exception::outOfMemory();
+  QImage* stagedImage = makeImage(this->imageSize);
 
-  if (!root->left && !root->right)
-    fillRectangle(image, root->polygon);
-}
+  drawGridByTree(stagedImage, this->imageTree);
+  restoreImageByTree(finalImage, this->imageTree);
 
-void MainWindow::fillRectangle(QImage *image, Polygon polygon)
-{
-  if (!image)
-    throw Exception::nullPointer();
+  ui->stagedImage->setPixmap(QPixmap::fromImage(*stagedImage));
+  ui->finalImage->setPixmap(QPixmap::fromImage(*finalImage));
 
-  QPainter painter;
-  painter.begin(image);
-  painter.fillRect(QRect(polygon.topLeft, polygon.bottomRight),
-                   QColor(polygon.color.red,
-                          polygon.color.green,
-                          polygon.color.blue));
-  painter.end();
+  delete stagedImage;
+  delete finalImage;
 }

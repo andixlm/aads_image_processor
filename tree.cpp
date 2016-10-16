@@ -1,191 +1,210 @@
 #include <QQueue>
+#include "exception.h"
+#include "image.h"
 #include "mainwindow.h"
+#include "tree.h"
 
-int treeSize(treeNode *root) {
-  if (!root->left && !root->right)
+Tree::node* Tree::add(node* root, Polygon polygon)
+{
+  if (root == nullptr) {
+    node* tempNode = new node { polygon, nullptr, nullptr };
+    if (tempNode == nullptr)
+      throw Exception::outOfMemory();
+
+    return tempNode;
+  }
+
+  if (comparePolygonsPositions(polygon, root->polygon) < 0)
+    root->left = add(root->left, polygon);
+  else
+    root->right = add(root->right, polygon);
+
+  return root;
+}
+
+void Tree::clear(node* root)
+{
+  if (root == nullptr)
+    return;
+
+  clear(root->left);
+  clear(root->right);
+
+  delete root;
+}
+
+int Tree::size(node* root) {
+  if (root->left == nullptr && root->right == nullptr)
     return 1;
 
   int leftCount, rightCount;
 
-  if (root->left)
-    leftCount = treeSize(root->left);
+  if (root->left != nullptr)
+    leftCount = size(root->left);
   else
     leftCount = 0;
 
-  if (root->right)
-    rightCount = treeSize(root->right);
+  if (root->right != nullptr)
+    rightCount = size(root->right);
   else
     rightCount = 0;
 
   return leftCount + rightCount + 1;
 }
 
-int treeLeafs(treeNode *root)
+int Tree::leafs(node* root)
 {
-  if (!root)
+  if (root == nullptr)
     return 0;
 
-  if (!root->left && !root->right)
+  if (root->left == nullptr  && root->right == nullptr)
     return 1;
 
-  return treeLeafs(root->left) + treeLeafs(root->right);
+  return leafs(root->left) + leafs(root->right);
 }
 
-int comparePolygonPositions(Polygon alpha, Polygon beta)
-{
-  int width = beta.bottomRight.x() - beta.topLeft.x();
-  int height = beta.bottomRight.y() - beta.topLeft.y();
-
-  int averageWidth = (beta.bottomRight.x() + beta.topLeft.x()) / 2;
-  int averageHeight = (beta.bottomRight.y() + beta.topLeft.y()) / 2;
-
-  if (width == height)
-    if (alpha.topLeft.x() < averageWidth)
-      return -1;
-    else
-      return 1;
-  else
-    if (alpha.topLeft.y() < averageHeight)
-      return -1;
-    else
-      return 1;
-}
-
-treeNode *treeAdd(treeNode *root, Polygon polygon)
-{
-  if (!root)
-    return new treeNode { polygon, nullptr, nullptr };
-
-  if (comparePolygonPositions(polygon, root->polygon) < 0)
-    root->left = treeAdd(root->left, polygon);
-  else
-    root->right = treeAdd(root->right, polygon);
-
-  return root;
-}
-
-int *treeToArray(treeNode *root, int fullTreeSize, int leafTreeSize)
-{
-  QQueue<treeNode *> processingNode;
-  processingNode.enqueue(root);
+int* Tree::toArray(node* root)
+{ 
+  if (root == nullptr)
+    return nullptr;
 
   const int packageSize = 3;
-  const int polygonSize = 5;
+  const int polygonSize = 7;
+  const int treeSize = Tree::size(root);
+  const int treeLeafs = Tree::leafs(root);
 
-  int *array = new int[1 + packageSize * fullTreeSize +
+  QQueue<node*> nodes;
+  nodes.enqueue(root);
+
+  int idx = 0, packageIdx = 1,
+      polygonIdx = packageSize * treeSize + packageSize + 1;
+
+  QQueue<int> indexes;
+  indexes.enqueue(packageIdx);
+
+  int* array = new int[
+      1 +
+      packageSize * treeSize +
       packageSize +
-      polygonSize * leafTreeSize + 1];
+      polygonSize * treeLeafs +
+      1];
+  if (array == nullptr)
+    throw Exception::outOfMemory();
 
-  int currentIdx = 0, nextEmptyPackageIdx = 1;
-  int polygonIdx = packageSize * fullTreeSize + packageSize + 1;
+  array[idx] = -packageIdx;
+  array[packageIdx] = idx;
 
-  array[currentIdx] = -nextEmptyPackageIdx;
-  array[nextEmptyPackageIdx] = currentIdx;
+  packageIdx += packageSize;
 
-  QQueue<int> emptyPackageIdx;
-  emptyPackageIdx.enqueue(nextEmptyPackageIdx);
+  while (!nodes.empty()) {
+    node* currentNode = nodes.dequeue();
+    idx = indexes.dequeue();
 
-  nextEmptyPackageIdx += packageSize;
+    if (currentNode->left != nullptr || currentNode->right != nullptr) {
+      // Left child.
+      nodes.enqueue(currentNode->left);
 
-  while (!processingNode.empty()) {
-    currentIdx = emptyPackageIdx.dequeue();
-    treeNode *currentNode = processingNode.dequeue();
+      indexes.enqueue(packageIdx);
 
-    if (currentNode->left || currentNode->right) {
-      // Left child
-      processingNode.enqueue(currentNode->left);
+      array[++idx] = -packageIdx;
+      array[packageIdx] = idx;
 
-      array[++currentIdx] = -nextEmptyPackageIdx;
-      array[nextEmptyPackageIdx] = currentIdx;
+      packageIdx += packageSize;
 
-      emptyPackageIdx.enqueue(nextEmptyPackageIdx);
+      // Right child.
+      nodes.enqueue(currentNode->right);
 
-      nextEmptyPackageIdx += packageSize;
-      // Right child
-      processingNode.enqueue(currentNode->right);
+      indexes.enqueue(packageIdx);
 
-      array[++currentIdx] = -nextEmptyPackageIdx;
-      array[nextEmptyPackageIdx] = currentIdx;
+      array[++idx] = -packageIdx;
+      array[packageIdx] = idx;
 
-      emptyPackageIdx.enqueue(nextEmptyPackageIdx);
-
-      nextEmptyPackageIdx += packageSize;
+      packageIdx += packageSize;
     } else {
-      array[++currentIdx] = polygonIdx;
-      array[++currentIdx] = polygonIdx;
+      // Write link index minimal polygon is stored on.
+      for (int count = 0; count < packageSize - 1; ++count)
+        array[++idx] = polygonIdx;
 
+      // Write information about minimal polygon.
       array[polygonIdx++] = currentNode->polygon.topLeft.x();
       array[polygonIdx++] = currentNode->polygon.topLeft.y();
+
       array[polygonIdx++] = currentNode->polygon.bottomRight.x();
       array[polygonIdx++] = currentNode->polygon.bottomRight.y();
-      array[polygonIdx++] = (currentNode->polygon.color.red +
-                             currentNode->polygon.color.green +
-                             currentNode->polygon.color.blue) / 3;
+
+      array[polygonIdx++] = currentNode->polygon.color.red;
+      array[polygonIdx++] = currentNode->polygon.color.green;
+      array[polygonIdx++] = currentNode->polygon.color.blue;
     }
   }
 
+  // Triple zero divider between partition and polygon's information.
   for (int count = 0; count < packageSize; ++count)
-    array[++currentIdx] = 0;
+    array[++idx] = 0;
 
-  array[polygonIdx] = 0;
+  // Last element is -1.
+  array[polygonIdx] = -1;
 
   return array;
 }
 
-treeNode *arrayToTree(int *array)
+Tree::node* Tree::toTree(int* array)
 {
-  QQueue<treeNode *> nodes;
+  if (array == nullptr)
+    return nullptr;
+
+  node* root = nullptr;
+
+  QQueue<node*> nodes;
   QQueue<int> indexes;
-
-  treeNode *root = nullptr;
-
   int idx = 0;
-  if (array[idx] < 0) {
-    indexes.enqueue(qAbs(array[idx]));
 
-    root = new treeNode { Polygon(), nullptr, nullptr };
+  if (array[idx] < 0) {
+    root = new node { Polygon(), nullptr, nullptr };
+    if (root == nullptr)
+      throw Exception::outOfMemory();
     nodes.enqueue(root);
+
+    indexes.enqueue(qAbs(array[idx]));
   } else
     return root;
 
   while (!nodes.empty()) {
+    node* currentNode = nodes.dequeue();
     idx = indexes.dequeue();
-    treeNode *currentNode = nodes.dequeue();
 
     if (array[++idx] < 0) {
-      indexes.enqueue(qAbs(array[idx]));
-
-      currentNode->left = new treeNode { Polygon(), nullptr, nullptr };
+      // Left child.
+      currentNode->left = new node { Polygon(), nullptr, nullptr };
+      if (currentNode->left == nullptr)
+        throw Exception::outOfMemory();
       nodes.enqueue(currentNode->left);
-    }
 
-    if (array[++idx] < 0) {
-      indexes.enqueue(qAbs(array[idx]));
+      indexes.enqueue(qAbs(array[idx++]));
 
-      currentNode->right = new treeNode { Polygon(), nullptr, nullptr };
+      // Right child.
+      currentNode->right = new node { Polygon(), nullptr, nullptr };
+      if (currentNode->right == nullptr)
+        throw Exception::outOfMemory();
       nodes.enqueue(currentNode->right);
-    } else if (array[idx] > 0){
+
+      indexes.enqueue(qAbs(array[idx]));
+    } else {
+      // Index of polygon we work with.
       int polygonIdx = array[idx];
 
+      // Restore information about polygon.
       currentNode->polygon.topLeft.setX(array[polygonIdx++]);
       currentNode->polygon.topLeft.setY(array[polygonIdx++]);
+
       currentNode->polygon.bottomRight.setX(array[polygonIdx++]);
       currentNode->polygon.bottomRight.setY(array[polygonIdx++]);
-      currentNode->polygon.color.red = currentNode->polygon.color.green =
-          currentNode->polygon.color.blue = array[polygonIdx];
+
+      currentNode->polygon.color.red = array[polygonIdx++];
+      currentNode->polygon.color.green = array[polygonIdx++];
+      currentNode->polygon.color.blue = array[polygonIdx++];
     }
   }
 
   return root;
-}
-
-void treeClear(treeNode *root)
-{
-  if (!root)
-    return;
-
-  treeClear(root->left);
-  treeClear(root->right);
-
-  delete root;
 }

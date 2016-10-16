@@ -4,6 +4,7 @@
 #include <QImage>
 #include <QPoint>
 #include "containers.h"
+#include "tree.h"
 
 QImage* makeImage(int size);
 

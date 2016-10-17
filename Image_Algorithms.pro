@@ -6,6 +6,7 @@ TARGET = Image_Algorithms
 TEMPLATE = app
 
 SOURCES += main.cpp mainwindow.cpp \
+    background.cpp \
     button.cpp \
     combobox.cpp \
     file.cpp \

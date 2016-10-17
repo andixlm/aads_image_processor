@@ -148,6 +148,11 @@
     </item>
     <item>
      <property name="text">
+      <string>Remove background</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
       <string>Mark strokes by angle</string>
      </property>
     </item>

@@ -31,6 +31,7 @@ private:
   void (MainWindow::* processImage)();
   void buildGrid();
   void restoreImage();
+  void removeBackground();
   void markStrokes();
 
 private slots:

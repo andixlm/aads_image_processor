@@ -33,6 +33,14 @@ void Tree::clear(node* root)
   delete root;
 }
 
+bool Tree::isLeaf(node* root)
+{
+  if (root->left == nullptr && root->right == nullptr)
+    return true;
+
+  return false;
+}
+
 int Tree::size(node* root) {
   if (root->left == nullptr && root->right == nullptr)
     return 1;

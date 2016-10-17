@@ -7,6 +7,8 @@ namespace Tree {
   node* add(node* root, Polygon polygon);
   void clear(node* root);
 
+  bool isLeaf(node* root);
+
   int size(node* root);
   int leafs(node* root);
 

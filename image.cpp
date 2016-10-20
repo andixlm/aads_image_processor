@@ -99,7 +99,7 @@ int comparePolygonsPositions(Polygon alpha, Polygon beta)
 
 bool isSizeThreshold(QPoint topLeft, QPoint bottomRight, int threshold)
 {
-  if (bottomRight.x() - topLeft.x() <= threshold ||
+  if (bottomRight.x() - topLeft.x() <= threshold &&
       bottomRight.y() - topLeft.y() <= threshold)
     return true;
 

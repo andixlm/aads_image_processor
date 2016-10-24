@@ -17,10 +17,9 @@ void MainWindow::on_modeSwitcher_currentIndexChanged(int value)
     case _removeBackground:
       this->processImage = &MainWindow::removeBackground;
       break;
-/*
+
     case _markStrokes:
       processImage = &MainWindow::markStrokes;
       break;
-*/
   }
 }

@@ -12,6 +12,7 @@ SOURCES += main.cpp mainwindow.cpp \
     file.cpp \
     grid.cpp \
     image.cpp \
+    mark.cpp \
     restore.cpp \
     spinbox.cpp \
     tools.cpp \

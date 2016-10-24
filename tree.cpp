@@ -71,7 +71,7 @@ int Tree::leafs(node* root)
   return leafs(root->left) + leafs(root->right);
 }
 
-Polygon* Tree::getPolygonByPoint(Tree::node *root, QPoint point)
+Polygon* Tree::getPolygonByPoint(QPoint point, Tree::node *root)
 {
   if (root == nullptr)
     return nullptr;
@@ -94,7 +94,7 @@ Polygon* Tree::getPolygonByPoint(Tree::node *root, QPoint point)
   return nullptr;
 }
 
-QQueue<Polygon*> Tree::getPolygonsBySize(node* root, int size)
+QQueue<Polygon*> Tree::getPolygonsBySize(int size, node* root)
 {
   QQueue<node*> nodes;
   nodes.enqueue(root);
@@ -115,6 +115,38 @@ QQueue<Polygon*> Tree::getPolygonsBySize(node* root, int size)
   }
 
   return polygons;
+}
+
+QQueue<Polygon*> Tree::getAdjacentPolygonsBySize(Polygon polygon, int size,
+                                                 node* root)
+{
+  QQueue<Polygon*> adjacentPolygons;
+  adjacentPolygons.enqueue(getPolygonByPoint(QPoint(polygon.topLeft.x() - 1, polygon.topLeft.y() - 1),
+                                             root));
+  adjacentPolygons.enqueue(getPolygonByPoint(QPoint(polygon.topLeft.x() + 1, polygon.topLeft.y() - 1),
+                                             root));
+  adjacentPolygons.enqueue(getPolygonByPoint(QPoint(polygon.bottomRight.x() + 1, polygon.topLeft.y() - 1),
+                                             root));
+  adjacentPolygons.enqueue(getPolygonByPoint(QPoint(polygon.bottomRight.x() + 1, polygon.bottomRight.y() - 1),
+                                             root));
+  adjacentPolygons.enqueue(getPolygonByPoint(QPoint(polygon.bottomRight.x() + 1, polygon.bottomRight.y() + 1),
+                                             root));
+  adjacentPolygons.enqueue(getPolygonByPoint(QPoint(polygon.bottomRight.x() - 1, polygon.bottomRight.y() + 1),
+                                             root));
+  adjacentPolygons.enqueue(getPolygonByPoint(QPoint(polygon.topLeft.x() - 1, polygon.bottomRight.y() + 1),
+                                             root));
+  adjacentPolygons.enqueue(getPolygonByPoint(QPoint(polygon.topLeft.x() - 1, polygon.bottomRight.y() - 1),
+                                             root));
+
+  QQueue<Polygon*> adjacentSizedPolygons;
+  while (!adjacentPolygons.empty()) {
+    Polygon* currentPolygon = adjacentPolygons.dequeue();
+
+    if (isSizeThreshold(currentPolygon->topLeft, currentPolygon->bottomRight, size))
+      adjacentSizedPolygons.enqueue(currentPolygon);
+  }
+
+  return adjacentSizedPolygons;
 }
 
 int* Tree::toArray(node* root)

@@ -19,6 +19,7 @@ int comparePolygonsPositions(Polygon alpha, Polygon beta);
 bool isSizeThreshold(QPoint topLeft, QPoint bottomRight, int threshold);
 bool isBrightnessThreshold(QImage* image, QPoint topLeft, QPoint bottomRight,
                            int threshold);
+bool polygonHasPoint(Polygon polygon, QPoint point);
 
 Rgb pixelColor(QImage* image, QPoint point);
 int pixelBrightness(QImage* image, QPoint point);

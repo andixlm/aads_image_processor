@@ -13,6 +13,7 @@ namespace Tree {
   int size(node* root);
   int leafs(node* root);
 
+  Polygon* getPolygonByPoint(Tree::node *root, QPoint point);
   QQueue<Polygon*> getPolygonsBySize(Tree::node* root, int size);
 
   int* toArray(node* root);

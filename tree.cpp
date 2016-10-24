@@ -71,6 +71,29 @@ int Tree::leafs(node* root)
   return leafs(root->left) + leafs(root->right);
 }
 
+QQueue<Polygon*> Tree::getPolygonsBySize(node* root, int size)
+{
+  QQueue<node*> nodes;
+  nodes.enqueue(root);
+
+  QQueue<Polygon*> polygons;
+  while (!nodes.empty()) {
+    node* currentNode = nodes.dequeue();
+
+    if (currentNode->left != nullptr || currentNode->right != nullptr) {
+      nodes.enqueue(currentNode->left);
+      nodes.enqueue(currentNode->right);
+    } else {
+      if (isSizeThreshold(currentNode->polygon.topLeft,
+                          currentNode->polygon.bottomRight,
+                          size))
+        polygons.enqueue(&currentNode->polygon);
+    }
+  }
+
+  return polygons;
+}
+
 int* Tree::toArray(node* root)
 { 
   if (root == nullptr)

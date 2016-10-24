@@ -1,6 +1,8 @@
 #ifndef IMAGESTRUCTURES_H
 #define IMAGESTRUCTURES_H
 
+#include <QPoint>
+
 struct Rgb {
  int red;
  int green;

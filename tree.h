@@ -2,7 +2,6 @@
 #define TREE_H
 
 #include <QVector>
-#include <QQueue>
 #include "containers.h"
 
 namespace Tree {
@@ -15,7 +14,7 @@ namespace Tree {
   int leafs(node* root);
 
   Polygon* getPolygonByPoint(QPoint point, Tree::node* root);
-  QQueue<Polygon*> getPolygonsBySize(int size, Tree::node* root);
+  QVector<Polygon*> getPolygonsBySize(int size, Tree::node* root);
   QVector<Polygon*> getAdjacentPolygonsBySize(Polygon polygon, int size, node* root);
 
   int* toArray(node* root);

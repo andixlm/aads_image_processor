@@ -95,12 +95,12 @@ Polygon* Tree::getPolygonByPoint(QPoint point, Tree::node *root)
   return nullptr;
 }
 
-QQueue<Polygon*> Tree::getPolygonsBySize(int size, node* root)
+QVector<Polygon*> Tree::getPolygonsBySize(int size, node* root)
 {
   QQueue<node*> nodes;
   nodes.enqueue(root);
 
-  QQueue<Polygon*> polygons;
+  QVector<Polygon*> polygons;
   while (!nodes.empty()) {
     node* currentNode = nodes.dequeue();
 
@@ -111,7 +111,9 @@ QQueue<Polygon*> Tree::getPolygonsBySize(int size, node* root)
       if (isSizeThreshold(currentNode->polygon.topLeft,
                           currentNode->polygon.bottomRight,
                           size))
-        polygons.enqueue(&currentNode->polygon);
+        /* isSizeThreshold(...) isn't that function I need.
+         * TODO: check on equality, not threshold. */
+        polygons.append(&currentNode->polygon);
     }
   }
 

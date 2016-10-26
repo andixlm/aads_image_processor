@@ -1,3 +1,4 @@
+#include <QVector>
 #include <QQueue>
 #include "exception.h"
 #include "image.h"
@@ -117,8 +118,8 @@ QQueue<Polygon*> Tree::getPolygonsBySize(int size, node* root)
   return polygons;
 }
 
-QQueue<Polygon*> Tree::getAdjacentPolygonsBySize(Polygon polygon, int size,
-                                                 node* root)
+QVector<Polygon*> Tree::getAdjacentPolygonsBySize(Polygon polygon, int size,
+                                                  node* root)
 {
   QQueue<Polygon*> adjacentPolygons;
   adjacentPolygons.enqueue(getPolygonByPoint(QPoint(polygon.topLeft.x() - 1, polygon.topLeft.y() - 1),
@@ -138,12 +139,12 @@ QQueue<Polygon*> Tree::getAdjacentPolygonsBySize(Polygon polygon, int size,
   adjacentPolygons.enqueue(getPolygonByPoint(QPoint(polygon.topLeft.x() - 1, polygon.bottomRight.y() - 1),
                                              root));
 
-  QQueue<Polygon*> adjacentSizedPolygons;
+  QVector<Polygon*> adjacentSizedPolygons;
   while (!adjacentPolygons.empty()) {
     Polygon* currentPolygon = adjacentPolygons.dequeue();
 
     if (isSizeThreshold(currentPolygon->topLeft, currentPolygon->bottomRight, size))
-      adjacentSizedPolygons.enqueue(currentPolygon);
+      adjacentSizedPolygons.append(currentPolygon);
   }
 
   return adjacentSizedPolygons;

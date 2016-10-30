@@ -44,6 +44,7 @@ private slots:
   void on_runButton_clicked();
 
   // Value selectors
+  void on_angle_valueChanged(int value);
   void on_sizeThreshold_valueChanged(int value);
   void on_brightnessThreshold_valueChanged(int value);
 

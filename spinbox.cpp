@@ -9,3 +9,8 @@ void MainWindow::on_brightnessThreshold_valueChanged(int value)
 {
   this->brightnessThreshold = value;
 }
+
+void MainWindow::on_angle_valueChanged(int value)
+{
+  return;
+}

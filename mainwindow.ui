@@ -221,7 +221,7 @@
      <number>8</number>
     </property>
     <property name="value">
-     <number>1</number>
+     <number>2</number>
     </property>
    </widget>
    <widget class="QSpinBox" name="brightnessThreshold">
@@ -237,7 +237,7 @@
      <number>255</number>
     </property>
     <property name="value">
-     <number>13</number>
+     <number>32</number>
     </property>
    </widget>
    <widget class="QPushButton" name="openFileButton">
@@ -264,6 +264,41 @@
     </property>
     <property name="text">
      <string>Save to file</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="angleLabel">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>310</y>
+      <width>31</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Angle:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="angle">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>310</y>
+      <width>41</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>90</number>
+    </property>
+    <property name="value">
+     <number>45</number>
     </property>
    </widget>
   </widget>

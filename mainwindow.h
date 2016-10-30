@@ -22,6 +22,7 @@ private:
   Tree::node* imageTree;
   int* imageArray;
 
+  int angle;
   int imageSize;
   int sizeThreshold;
   int brightnessThreshold;

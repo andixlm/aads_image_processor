@@ -97,6 +97,14 @@ int comparePolygonsPositions(Polygon alpha, Polygon beta)
       return 1;
 }
 
+bool isMatchedSize(Polygon polygon, int size)
+{
+  int polygonHeight = polygon.bottomRight.y() - polygon.topLeft.y(),
+      polygonWidth = polygon.bottomRight.x() - polygon.topLeft.x();
+
+  return polygonHeight == size && polygonWidth == size;
+}
+
 bool isSizeThreshold(QPoint topLeft, QPoint bottomRight, int threshold)
 {
   if (bottomRight.x() - topLeft.x() <= threshold &&

@@ -16,6 +16,7 @@ void fillRectangle(QImage* image, Polygon polygon);
 
 int comparePolygonsPositions(Polygon alpha, Polygon beta);
 
+bool isMatchedSize(Polygon polygon, int size);
 bool isSizeThreshold(QPoint topLeft, QPoint bottomRight, int threshold);
 bool isBrightnessThreshold(QImage* image, QPoint topLeft, QPoint bottomRight,
                            int threshold);

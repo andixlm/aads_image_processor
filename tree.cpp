@@ -152,6 +152,43 @@ QVector<Polygon*> Tree::getAdjacentPolygonsBySize(Polygon polygon, int size,
   return adjacentSizedPolygons;
 }
 
+void Tree::getAllAdjacentPolygonsBySize(Polygon* polygon, int size,
+                                        node* root, QVector<Polygon*>* vector)
+{
+  if (polygon != nullptr &&
+      isSizeThreshold(polygon->topLeft, polygon->bottomRight, size) &&
+      !vector->contains(polygon))
+    vector->append(polygon);
+  else
+    return;
+
+  Polygon* upperLeft =
+      getPolygonByPoint(QPoint(polygon->topLeft.x() - 1, polygon->topLeft.y() - 1), root);
+  Polygon* upper =
+      getPolygonByPoint(QPoint(polygon->topLeft.x() + 1, polygon->topLeft.y() - 1), root);
+  Polygon* upperRight =
+      getPolygonByPoint(QPoint(polygon->bottomRight.x() + 1, polygon->topLeft.y() - 1), root);
+  Polygon* right =
+      getPolygonByPoint(QPoint(polygon->bottomRight.x() + 1, polygon->bottomRight.y() - 1), root);
+  Polygon* lowerRight =
+      getPolygonByPoint(QPoint(polygon->bottomRight.x() + 1, polygon->bottomRight.y() + 1), root);
+  Polygon* lower =
+      getPolygonByPoint(QPoint(polygon->bottomRight.x() - 1, polygon->bottomRight.y() + 1), root);
+  Polygon* lowerLeft =
+      getPolygonByPoint(QPoint(polygon->topLeft.x() - 1, polygon->bottomRight.y() + 1), root);
+  Polygon* left =
+      getPolygonByPoint(QPoint(polygon->topLeft.x() - 1, polygon->bottomRight.y() - 1), root);
+
+  getAllAdjacentPolygonsBySize(upperLeft, size, root, vector);
+  getAllAdjacentPolygonsBySize(upper, size, root, vector);
+  getAllAdjacentPolygonsBySize(upperRight, size, root, vector);
+  getAllAdjacentPolygonsBySize(right, size, root, vector);
+  getAllAdjacentPolygonsBySize(lowerRight, size, root, vector);
+  getAllAdjacentPolygonsBySize(lower, size, root, vector);
+  getAllAdjacentPolygonsBySize(lowerLeft, size, root, vector);
+  getAllAdjacentPolygonsBySize(left, size, root, vector);
+}
+
 int* Tree::toArray(node* root)
 { 
   if (root == nullptr)

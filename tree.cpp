@@ -152,7 +152,7 @@ void Tree::getAllAdjacentPolygonsBySize(Polygon* polygon, int size,
                                         node* root, QVector<Polygon*>* vector)
 {
   if (polygon != nullptr &&
-      isSizeThreshold(polygon->topLeft, polygon->bottomRight, size) &&
+      isMatchedSize(*polygon, size) &&
       !vector->contains(polygon))
     vector->append(polygon);
   else

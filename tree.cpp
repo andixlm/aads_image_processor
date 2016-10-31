@@ -108,11 +108,7 @@ QVector<Polygon*> Tree::getPolygonsBySize(int size, node* root)
       nodes.enqueue(currentNode->left);
       nodes.enqueue(currentNode->right);
     } else {
-      if (isSizeThreshold(currentNode->polygon.topLeft,
-                          currentNode->polygon.bottomRight,
-                          size))
-        /* isSizeThreshold(...) isn't that function I need.
-         * TODO: check on equality, not threshold. */
+      if (isMatchedSize(currentNode->polygon, size))
         polygons.append(&currentNode->polygon);
     }
   }

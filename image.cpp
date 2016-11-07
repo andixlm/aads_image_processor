@@ -138,10 +138,19 @@ bool isBrightnessThreshold(QImage* image, QPoint topLeft, QPoint bottomRight,
 
 bool polygonHasPoint(Polygon polygon, QPoint point)
 {
-  return point.x() >= polygon.topLeft.x() &&
-      point.x() <= polygon.bottomRight.x() &&
-      point.y() >= polygon.topLeft.y() &&
-      point.y() <= polygon.bottomRight.y();
+  if (polygon.topLeft == point)
+    return true;
+
+  return point.x() >= polygon.topLeft.x() && point.x() <= polygon.bottomRight.x() &&
+      point.y() >= polygon.topLeft.y() && point.y() <= polygon.bottomRight.y();
+}
+
+bool polygonHasPoint(Polygon polygon, double x, double y)
+{
+  return x >= static_cast<double>(polygon.topLeft.x()) &&
+      x <= static_cast<double>(polygon.bottomRight.x()) &&
+      y >= static_cast<double>(polygon.topLeft.y()) &&
+      y <= static_cast<double>(polygon.bottomRight.y());
 }
 
 Rgb pixelColor(QImage *image, QPoint point)

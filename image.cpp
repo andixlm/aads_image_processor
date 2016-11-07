@@ -102,7 +102,7 @@ bool isMatchedSize(Polygon polygon, int size)
   int polygonHeight = polygon.bottomRight.y() - polygon.topLeft.y(),
       polygonWidth = polygon.bottomRight.x() - polygon.topLeft.x();
 
-  return polygonHeight == size && polygonWidth == size;
+  return polygonHeight == size || polygonWidth == size;
 }
 
 bool isSizeThreshold(QPoint topLeft, QPoint bottomRight, int threshold)

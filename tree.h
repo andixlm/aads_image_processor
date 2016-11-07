@@ -14,6 +14,7 @@ namespace Tree {
   int leafs(node* root);
 
   Polygon* getPolygonByPoint(QPoint point, Tree::node* root);
+  Polygon* getPolygonByPoint(double x, double y, Tree::node* root);
   QVector<Polygon*> getPolygonsBySize(int size, Tree::node* root);
   QVector<Polygon*> getAdjacentPolygonsBySize(Polygon polygon, int size, node* root);
   void getAllAdjacentPolygonsBySize(Polygon* polygon, int size,

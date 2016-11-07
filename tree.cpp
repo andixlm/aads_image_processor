@@ -72,7 +72,7 @@ int Tree::leafs(node* root)
   return leafs(root->left) + leafs(root->right);
 }
 
-Polygon* Tree::getPolygonByPoint(QPoint point, Tree::node *root)
+Polygon* Tree::getPolygonByPoint(QPoint point, Tree::node* root)
 {
   if (root == nullptr)
     return nullptr;

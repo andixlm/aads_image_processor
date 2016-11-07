@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget* parent) :
   processImage = &MainWindow::buildGrid;
   imageSize = 256;
 
-  angle = ui->angle->value();
+  angle = 30;
   sizeThreshold = ui->sizeThreshold->value();
   brightnessThreshold = ui->brightnessThreshold->value();
 }

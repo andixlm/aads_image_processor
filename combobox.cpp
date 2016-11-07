@@ -23,3 +23,23 @@ void MainWindow::on_modeSwitcher_currentIndexChanged(int value)
       break;
   }
 }
+
+enum { _upTo30, _upTo60, _upTo90 };
+
+void MainWindow::on_angleSwitcher_currentIndexChanged(int value)
+{
+  switch (value)
+  {
+    case _upTo30:
+      this->angle = 30;
+      break;
+
+    case _upTo60:
+      this->angle = 60;
+      break;
+
+    case _upTo90:
+      this->angle = 89;
+      break;
+  }
+}

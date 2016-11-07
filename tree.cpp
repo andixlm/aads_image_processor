@@ -182,21 +182,29 @@ void Tree::getAllAdjacentPolygonsBySize(Polygon* polygon, int size,
     return;
 
   Polygon* upperLeft =
-      getPolygonByPoint(QPoint(polygon->topLeft.x() - 1, polygon->topLeft.y() - 1), root);
+      getPolygonByPoint(static_cast<double>(polygon->topLeft.x()) - 0.5,
+                        static_cast<double>(polygon->topLeft.y()) - 0.5, root);
   Polygon* upper =
-      getPolygonByPoint(QPoint(polygon->topLeft.x() + 1, polygon->topLeft.y() - 1), root);
+      getPolygonByPoint(static_cast<double>(polygon->topLeft.x()) + 0.5,
+                        static_cast<double>(polygon->topLeft.y()) - 0.5, root);
   Polygon* upperRight =
-      getPolygonByPoint(QPoint(polygon->bottomRight.x() + 1, polygon->topLeft.y() - 1), root);
+      getPolygonByPoint(static_cast<double>(polygon->bottomRight.x()) + 0.5,
+                        static_cast<double>(polygon->topLeft.y()) - 0.5, root);
   Polygon* right =
-      getPolygonByPoint(QPoint(polygon->bottomRight.x() + 1, polygon->bottomRight.y() - 1), root);
+      getPolygonByPoint(static_cast<double>(polygon->bottomRight.x()) + 0.5,
+                        static_cast<double>(polygon->bottomRight.y()) - 0.5, root);
   Polygon* lowerRight =
-      getPolygonByPoint(QPoint(polygon->bottomRight.x() + 1, polygon->bottomRight.y() + 1), root);
+      getPolygonByPoint(static_cast<double>(polygon->bottomRight.x()) + 0.5,
+                        static_cast<double>(polygon->bottomRight.y()) + 0.5, root);
   Polygon* lower =
-      getPolygonByPoint(QPoint(polygon->bottomRight.x() - 1, polygon->bottomRight.y() + 1), root);
+      getPolygonByPoint(static_cast<double>(polygon->bottomRight.x()) - 0.5,
+                        static_cast<double>(polygon->bottomRight.y()) + 0.5, root);
   Polygon* lowerLeft =
-      getPolygonByPoint(QPoint(polygon->topLeft.x() - 1, polygon->bottomRight.y() + 1), root);
+      getPolygonByPoint(static_cast<double>(polygon->topLeft.x()) - 0.5,
+                        static_cast<double>(polygon->bottomRight.y()) + 0.5, root);
   Polygon* left =
-      getPolygonByPoint(QPoint(polygon->topLeft.x() - 1, polygon->bottomRight.y() - 1), root);
+      getPolygonByPoint(static_cast<double>(polygon->topLeft.x()) - 0.5,
+                        static_cast<double>(polygon->bottomRight.y()) - 0.5, root);
 
   getAllAdjacentPolygonsBySize(upperLeft, size, root, vector);
   getAllAdjacentPolygonsBySize(upper, size, root, vector);

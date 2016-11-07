@@ -23,9 +23,7 @@ static void editPolygons(Tree::node* root)
   editPolygons(root->left);
   editPolygons(root->right);
 
-  if (Tree::isLeaf(root) &&
-      !isSizeThreshold(root->polygon.topLeft, root->polygon.bottomRight,
-                       threshold))
+  if (Tree::isLeaf(root) && !isMatchedSize(root->polygon, threshold))
     root->polygon.color.red = root->polygon.color.green =
         root->polygon.color.blue = 255;
 }

@@ -95,6 +95,29 @@ Polygon* Tree::getPolygonByPoint(QPoint point, Tree::node* root)
   return nullptr;
 }
 
+Polygon* Tree::getPolygonByPoint(double x, double y, Tree::node* root)
+{
+  if (root == nullptr)
+    return nullptr;
+
+  QQueue<node*> nodes;
+  nodes.enqueue(root);
+
+  while (!nodes.empty()) {
+    node* currentNode = nodes.dequeue();
+
+    if (currentNode->left != nullptr || currentNode->right != nullptr) {
+      nodes.enqueue(currentNode->left);
+      nodes.enqueue(currentNode->right);
+    } else {
+      if (polygonHasPoint(currentNode->polygon, x, y))
+        return &currentNode->polygon;
+    }
+  }
+
+  return nullptr;
+}
+
 QVector<Polygon*> Tree::getPolygonsBySize(int size, node* root)
 {
   QQueue<node*> nodes;

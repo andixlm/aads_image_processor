@@ -21,6 +21,7 @@ bool isSizeThreshold(QPoint topLeft, QPoint bottomRight, int threshold);
 bool isBrightnessThreshold(QImage* image, QPoint topLeft, QPoint bottomRight,
                            int threshold);
 bool polygonHasPoint(Polygon polygon, QPoint point);
+bool polygonHasPoint(Polygon polygon, double x, double y);
 
 Rgb pixelColor(QImage* image, QPoint point);
 int pixelBrightness(QImage* image, QPoint point);

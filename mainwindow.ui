@@ -78,7 +78,7 @@
    <widget class="QPushButton" name="closeButton">
     <property name="geometry">
      <rect>
-      <x>720</x>
+      <x>280</x>
       <y>10</y>
       <width>80</width>
       <height>21</height>
@@ -306,6 +306,32 @@
       <string>60-90</string>
      </property>
     </item>
+   </widget>
+   <widget class="QLabel" name="wastedTimeConstLabel">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>20</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Wasted tim (sec):</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="wastedTimeLabel">
+    <property name="geometry">
+     <rect>
+      <x>770</x>
+      <y>20</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
   </widget>
  </widget>

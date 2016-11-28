@@ -1,3 +1,5 @@
+#include <ctime>
+#include <cstdlib>
 #include <QFileDialog>
 #include <QPixmap>
 #include <QString>
@@ -77,5 +79,12 @@ void MainWindow::on_clearButton_clicked()
 
 void MainWindow::on_runButton_clicked()
 {
+  ui->wastedTimeLabel->setText(QString());
+
+  int ticksStart = clock();
   (this->*processImage)();
+  int ticksEnd = clock();
+  double seconds = static_cast<double>(ticksEnd - ticksStart) / CLOCKS_PER_SEC;
+
+  ui->wastedTimeLabel->setNum(seconds);
 }
